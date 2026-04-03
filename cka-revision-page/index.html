@@ -4,7 +4,120 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CKA Revision Guide</title>
+
+  <title>CKA Revision Guide 2026 — Certified Kubernetes Administrator Exam Cheat Sheet</title>
+  <meta name="description" content="Free, comprehensive CKA revision guide covering Kubernetes namespaces, pods, deployments, services, StatefulSets, DaemonSets, HPA, taints, tolerations, affinity, and more. Pass the Certified Kubernetes Administrator exam with interactive examples and kubectl commands." />
+  <meta name="keywords" content="CKA, Certified Kubernetes Administrator, CKA exam guide, CKA revision, CKA cheat sheet, Kubernetes study guide, kubectl commands, Kubernetes deployment, Kubernetes pods, Kubernetes services, CKA 2026, CNCF certification, Kubernetes exam prep, CKA tips, Kubernetes namespaces, ConfigMap, Secret, PV, PVC, ReplicaSet, StatefulSet, DaemonSet, CronJob, HPA, VPA, taints and tolerations, node affinity" />
+  <meta name="author" content="Shivang Gupta" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <link rel="canonical" href="https://cka-guide.pages.dev/" />
+  <meta name="theme-color" content="#326ce5" />
+
+  <!-- Favicons & Icons -->
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/icon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/icon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/icons/icon-48x48.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="assets/icons/icon-96x96.png" />
+  <link rel="icon" type="image/svg+xml" href="assets/kubernetes-icon.svg" />
+  <link rel="shortcut icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <meta name="msapplication-TileColor" content="#326ce5" />
+  <meta name="msapplication-TileImage" content="assets/icons/icon-128x128.png" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://cka-guide.pages.dev/" />
+  <meta property="og:title" content="CKA Revision Guide 2026 — Certified Kubernetes Administrator Exam Cheat Sheet" />
+  <meta property="og:description" content="Free, interactive CKA revision guide with kubectl commands, YAML examples, and exam tips for every Kubernetes resource — from Pods to HPA. Pass the CKA exam on your first attempt." />
+  <meta property="og:site_name" content="CKA Revision Guide" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:image" content="https://cka-guide.pages.dev/assets/icons/icon-512x512.png" />
+  <meta property="og:image:width" content="512" />
+  <meta property="og:image:height" content="512" />
+  <meta property="og:image:alt" content="Kubernetes logo — CKA Revision Guide" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="CKA Revision Guide 2026 — Kubernetes Exam Cheat Sheet" />
+  <meta name="twitter:description" content="Free, interactive CKA revision guide with kubectl commands, YAML examples, and exam tips. Cover all 16+ Kubernetes topics for the Certified Kubernetes Administrator exam." />
+  <meta name="twitter:image" content="https://cka-guide.pages.dev/assets/icons/icon-512x512.png" />
+  <meta name="twitter:image:alt" content="Kubernetes logo — CKA Revision Guide" />
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "CKA Revision Guide 2026",
+    "description": "Comprehensive revision guide for the Certified Kubernetes Administrator (CKA) exam covering namespaces, pods, deployments, services, scheduling, scaling, and more.",
+    "url": "https://cka-guide.pages.dev/",
+    "inLanguage": "en",
+    "author": {
+      "@type": "Person",
+      "name": "Shivang Gupta",
+      "url": "https://github.com/shivang21007"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Shivang Gupta"
+    },
+    "mainEntity": {
+      "@type": "Course",
+      "name": "CKA Exam Revision Guide",
+      "description": "A free, interactive study guide for the Certified Kubernetes Administrator (CKA) exam by the CNCF.",
+      "provider": {
+        "@type": "Organization",
+        "name": "CNCF",
+        "sameAs": "https://www.cncf.io/"
+      },
+      "educationalLevel": "Intermediate",
+      "about": [
+        "Kubernetes",
+        "Container Orchestration",
+        "CKA Certification",
+        "kubectl",
+        "Cloud Native"
+      ]
+    },
+    "keywords": "CKA, Certified Kubernetes Administrator, Kubernetes, kubectl, exam guide, cheat sheet, revision, CNCF"
+  }
+  </script>
+
+  <!-- FAQ Structured Data for rich search results -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the correct Kubernetes deployment order for the CKA exam?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The recommended order is: Namespace → ConfigMap → Secret → PersistentVolume → PersistentVolumeClaim → Pod → ReplicaSet → Deployment → StatefulSet → DaemonSet → Job → CronJob → Service → HPA."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What topics are covered in the CKA exam?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The CKA exam covers cluster architecture, workloads & scheduling (Pods, Deployments, StatefulSets, DaemonSets, Jobs, CronJobs), services & networking, storage (PV & PVC), and troubleshooting."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I quickly generate YAML in the CKA exam?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use the kubectl flag --dry-run=client -o yaml to generate YAML manifests quickly without actually creating the resource. For example: kubectl run nginx --image=nginx --dry-run=client -o yaml"
+        }
+      }
+    ]
+  }
+  </script>
+
   <link rel="stylesheet" href="style.css">
 </head>
 
