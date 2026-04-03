@@ -39,7 +39,7 @@ jobs:
 
       - name: Deploy to Cloudflare Pages
         run: |
-          wrangler pages deploy cka-guide \
+          wrangler pages deploy cka-revision-page \
           --project-name=cka-guide \
           --branch=main
         env:
