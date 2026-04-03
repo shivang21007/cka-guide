@@ -1,0 +1,1806 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CKA Revision Guide</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button id="hamburger" aria-label="Toggle navigation">
+    <span></span><span></span><span></span>
+  </button>
+  <div id="sidebar-overlay"></div>
+
+  <nav id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-title">⎈ CKA Revision</div>
+      <div class="sidebar-subtitle">Complete study guide</div>
+    </div>
+    <div class="sidebar-nav">
+    <div class="nav-group">
+      <div class="nav-group-title">Foundations</div>
+      <div class="nav-item active" data-section="deploy-order">🗺 Deploy Order</div>
+      <div class="nav-item" data-section="namespace">01 · Namespace</div>
+      <div class="nav-item" data-section="configmap">02 · ConfigMap</div>
+      <div class="nav-item" data-section="secret">03 · Secret</div>
+      <div class="nav-item" data-section="pv">04 · PV &amp; PVC</div>
+      <div class="nav-item" data-section="pod">05 · Pod</div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Workloads</div>
+      <div class="nav-item" data-section="replicaset">06 · ReplicaSet</div>
+      <div class="nav-item" data-section="deployment">07 · Deployment</div>
+      <div class="nav-item" data-section="statefulset">08 · StatefulSet</div>
+      <div class="nav-item" data-section="daemonset">09 · DaemonSet</div>
+      <div class="nav-item" data-section="job">10 · Job</div>
+      <div class="nav-item" data-section="cronjob">11 · CronJob</div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Networking</div>
+      <div class="nav-item" data-section="service">12 · Service Types</div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Scaling & Scheduling</div>
+      <div class="nav-item" data-section="hpa">13 · HPA &amp; KEDA</div>
+      <div class="nav-item" data-section="vpa">14 · VPA</div>
+      <div class="nav-item" data-section="taints">15 · Taints &amp; Tolerations</div>
+      <div class="nav-item" data-section="affinity">16 · Affinity</div>
+    </div>
+    </div>
+    <div class="sidebar-footer">
+      💡 CKA Tip: Use <code>--dry-run=client -o yaml</code> to generate YAML fast!
+    </div>
+  </nav>
+
+  <main id="main">
+
+    <!-- DEPLOY ORDER -->
+    <div class="section" id="deploy-order">
+      <div class="section-header">
+        <span class="section-badge" style="background:#e67e22;color:#111">OVERVIEW</span>
+        <h1>Kubernetes Deployment Order</h1>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#e67e22"></span>In CKA exam — always follow this
+          order</div>
+        <div class="card-body">
+          <div class="flow">
+            <div class="flow-box" style="border-color:#e67e22;color:#e0a050">1. Namespace</div>
+            <span class="flow-arrow">→</span>
+            <div class="flow-box" style="border-color:#5d9e5d;color:#7dba7d">2. ConfigMap</div>
+            <span class="flow-arrow">→</span>
+            <div class="flow-box" style="border-color:#d4850f;color:#f0a050">3. Secret</div>
+            <span class="flow-arrow">→</span>
+            <div class="flow-box" style="border-color:#c0392b;color:#d46040">4. PV</div>
+            <span class="flow-arrow">→</span>
+            <div class="flow-box" style="border-color:#d4850f;color:#e0a050">5. PVC</div>
+            <span class="flow-arrow">→</span>
+            <div class="flow-box" style="border-color:#b87d2f;color:#e0a050">6. Pod / Deploy</div>
+            <span class="flow-arrow">→</span>
+            <div class="flow-box" style="border-color:#e67e22;color:#f0a050">7. Service</div>
+            <span class="flow-arrow">→</span>
+            <div class="flow-box" style="border-color:#e67e22;color:#f0a050">8. HPA/VPA</div>
+          </div>
+          <div class="tip" style="margin-top:16px">
+            <span class="tip-icon">⚡</span>
+            <span><strong>Why this order?</strong> Pods reference ConfigMaps/Secrets/PVCs — those must exist first. PVC
+              references PV. Services route to pods — pod must exist. HPA targets a Deployment — deploy must exist
+              first.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NAMESPACE -->
+    <div class="section" id="namespace">
+      <div class="section-header">
+        <span class="section-badge">01</span>
+        <h1>Namespace</h1>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#e67e22"></span>Concept</div>
+        <div class="card-body">
+          <p class="concept-text">A <strong>Namespace</strong> is a virtual cluster inside a physical Kubernetes
+            cluster. It provides <strong>logical isolation</strong> — you can have the same resource names in different
+            namespaces without conflict. Think of it like folders on a computer. By default K8s has: <code
+              class="inline">default</code>, <code class="inline">kube-system</code>, <code
+              class="inline">kube-public</code>, <code class="inline">kube-node-lease</code>.</p>
+          <div class="interview-box">
+            <p>"Namespace provides a mechanism for isolating groups of resources within a single cluster. Resources like
+              Deployments, Services, and Pods are namespace-scoped, while Nodes, PersistentVolumes, and ClusterRoles are
+              cluster-scoped. This lets teams share a cluster without stepping on each other — dev, staging, prod can
+              all live in one cluster but in separate namespaces with their own resource quotas and RBAC policies."</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#5d9e5d"></span>YAML</div>
+        <div class="card-body">
+          <pre>apiVersion: v1
+kind: Namespace
+metadata:
+  name: my-app
+  labels:
+    env: production
+    team: backend</pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#d4850f"></span>Imperative Commands ⚡</div>
+        <div class="card-body">
+          <div class="imp-box">
+            <p>kubectl commands</p>
+            <span class="imp-cmd"><span class="imp-comment"># Create namespace</span></span>
+            <span class="imp-cmd">kubectl create namespace my-app</span>
+            <span class="imp-cmd">kubectl create ns my-app</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># List all namespaces</span></span>
+            <span class="imp-cmd">kubectl get ns</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Run all commands in a namespace</span></span>
+            <span class="imp-cmd">kubectl get pods -n my-app</span>
+            <span class="imp-cmd">kubectl get all -n my-app</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Set default namespace for session</span></span>
+            <span class="imp-cmd">kubectl config set-context --current --namespace=my-app</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONFIGMAP -->
+    <div class="section" id="configmap">
+      <div class="section-header">
+        <span class="section-badge" style="background:#5d9e5d">02</span>
+        <h1>ConfigMap</h1>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#e67e22"></span>Concept</div>
+        <div class="card-body">
+          <p class="concept-text">A <strong>ConfigMap</strong> stores <strong>non-sensitive configuration data</strong>
+            as key-value pairs. It decouples environment-specific configuration from container images, so the same image
+            works in dev/staging/prod by just swapping the ConfigMap. Pods consume ConfigMaps as <strong>env
+              vars</strong>, <strong>command-line args</strong>, or <strong>mounted files</strong>.</p>
+          <div class="interview-box">
+            <p>"ConfigMap is a K8s API object used to store non-confidential data in key-value pairs. The main benefit
+              is separation of concerns — your app image stays the same but the config changes per environment. Pods can
+              consume ConfigMap values as environment variables via envFrom or env.valueFrom, or as files mounted via a
+              volume. One important thing — ConfigMap updates don't automatically restart pods. If you mount it as a
+              volume, K8s will eventually update the file, but if you use it as an env var, you need to manually restart
+              the pod."</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#5d9e5d"></span>YAML — Full example (all 3 usage
+          patterns)</div>
+        <div class="card-body">
+          <pre>apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: my-app
+data:
+  APP_ENV: "production"
+  LOG_LEVEL: "info"
+  DB_HOST: "postgres-service"
+  config.yaml: |            # file-style key
+    server:
+      port: 8080
+      timeout: 30s
+
+---
+# Pod consuming ConfigMap in all 3 ways
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-pod
+  namespace: my-app
+spec:
+  containers:
+  - name: app
+    image: myapp:1.0
+    # Pattern 1: Load ALL keys as env vars
+    envFrom:
+    - configMapRef:
+        name: app-config
+    # Pattern 2: Load specific key as env var
+    env:
+    - name: DATABASE_HOST
+      valueFrom:
+        configMapKeyRef:
+          name: app-config
+          key: DB_HOST
+    # Pattern 3: Mount as file in container
+    volumeMounts:
+    - name: config-volume
+      mountPath: /etc/config
+  volumes:
+  - name: config-volume
+    configMap:
+      name: app-config</pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#d4850f"></span>Imperative Commands ⚡</div>
+        <div class="card-body">
+          <div class="imp-box">
+            <p>kubectl commands</p>
+            <span class="imp-cmd"><span class="imp-comment"># From literal values</span></span>
+            <span class="imp-cmd">kubectl create cm app-config --from-literal=APP_ENV=prod
+              --from-literal=LOG_LEVEL=info</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># From a file</span></span>
+            <span class="imp-cmd">kubectl create cm app-config --from-file=config.yaml</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># From env file (KEY=VALUE format)</span></span>
+            <span class="imp-cmd">kubectl create cm app-config --from-env-file=.env</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Generate YAML without creating (exam trick!)</span></span>
+            <span class="imp-cmd">kubectl create cm app-config --from-literal=K=V --dry-run=client -o yaml</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># View configmap data</span></span>
+            <span class="imp-cmd">kubectl describe cm app-config -n my-app</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECRET -->
+    <div class="section" id="secret">
+      <div class="section-header">
+        <span class="section-badge" style="background:#d4850f">03</span>
+        <h1>Secret</h1>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#e67e22"></span>Concept</div>
+        <div class="card-body">
+          <p class="concept-text">A <strong>Secret</strong> stores <strong>sensitive data</strong> like passwords,
+            tokens, SSH keys. Values are <strong>base64 encoded</strong> (NOT encrypted by default — just encoded). For
+            real security, use encryption at rest (EncryptionConfiguration) + RBAC. Secret types: <code
+              class="inline">Opaque</code> (generic), <code class="inline">kubernetes.io/tls</code>, <code
+              class="inline">kubernetes.io/dockerconfigjson</code>, <code
+              class="inline">kubernetes.io/service-account-token</code>.</p>
+          <div class="interview-box">
+            <p>"Secrets are similar to ConfigMaps but designed for sensitive data. Values are base64 encoded — which is
+              encoding not encryption, so anyone who can access the Secret object can decode it. Best practice is to
+              enable etcd encryption at rest and use strict RBAC. Secrets are mounted as tmpfs (in-memory) volumes so
+              they never hit disk in the container. One key difference from ConfigMap — when you create a secret
+              imperatively, kubectl auto base64-encodes the values. But in YAML, you need to base64-encode yourself
+              unless you use the stringData field."</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#5d9e5d"></span>YAML</div>
+        <div class="card-body">
+          <pre>apiVersion: v1
+kind: Secret
+metadata:
+  name: app-secret
+  namespace: my-app
+type: Opaque
+# Option A: base64 encoded values
+data:
+  DB_PASSWORD: cGFzc3dvcmQxMjM=   # echo -n "password123" | base64
+  API_KEY: c2VjcmV0a2V5
+
+# Option B: plain text (K8s encodes automatically)
+stringData:
+  DB_PASSWORD: "password123"
+  API_KEY: "secretkey"
+
+---
+# Consuming in Pod
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-pod
+spec:
+  containers:
+  - name: app
+    image: myapp:1.0
+    envFrom:
+    - secretRef:
+        name: app-secret
+    env:
+    - name: DB_PASS
+      valueFrom:
+        secretKeyRef:
+          name: app-secret
+          key: DB_PASSWORD
+    volumeMounts:
+    - name: secret-vol
+      mountPath: /etc/secrets
+      readOnly: true
+  volumes:
+  - name: secret-vol
+    secret:
+      secretName: app-secret</pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#d4850f"></span>Imperative Commands ⚡</div>
+        <div class="card-body">
+          <div class="imp-box">
+            <p>kubectl commands</p>
+            <span class="imp-cmd">kubectl create secret generic app-secret --from-literal=DB_PASSWORD=pass123</span>
+            <span class="imp-cmd">kubectl create secret generic app-secret --from-file=ssh-key=id_rsa</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># TLS secret</span></span>
+            <span class="imp-cmd">kubectl create secret tls my-tls --cert=cert.pem --key=key.pem</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Docker registry secret</span></span>
+            <span class="imp-cmd">kubectl create secret docker-registry regcred \</span>
+            <span class="imp-cmd"> --docker-server=gcr.io --docker-username=user --docker-password=pass</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Decode a secret value</span></span>
+            <span class="imp-cmd">kubectl get secret app-secret -o jsonpath='{.data.DB_PASSWORD}' | base64 -d</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PV & PVC -->
+    <div class="section" id="pv">
+      <div class="section-header">
+        <span class="section-badge" style="background:#c0392b">04</span>
+        <h1>PersistentVolume &amp; PersistentVolumeClaim</h1>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#e67e22"></span>Concept</div>
+        <div class="card-body">
+          <p class="concept-text"><strong>PV</strong> = actual storage provisioned by admin (NFS, EBS, HostPath). It's
+            <strong>cluster-scoped</strong>.<br><br>
+            <strong>PVC</strong> = user's request for storage. Pod uses PVC, not PV directly. K8s matches PVC to PV via
+            <strong>accessModes</strong> + <strong>capacity</strong>.<br><br>
+            <strong>Access Modes:</strong> <code class="inline">ReadWriteOnce</code> (RWO — 1 node), <code
+              class="inline">ReadOnlyMany</code> (ROX — many nodes read), <code class="inline">ReadWriteMany</code> (RWX
+            — many nodes write).<br>
+            <strong>Reclaim Policy:</strong> <code class="inline">Retain</code> (keep data), <code
+              class="inline">Delete</code> (delete on PVC delete), <code class="inline">Recycle</code> (deprecated).
+          </p>
+          <div class="interview-box">
+            <p>"PV and PVC implement a two-tier abstraction for storage in K8s. Admin creates PVs that represent actual
+              storage infrastructure. Developers create PVCs to claim that storage without needing to know the
+              underlying infrastructure. K8s binds a PVC to a PV when capacity and accessModes match. The Pod then
+              references the PVC. This separation means infrastructure and application code are decoupled. StorageClass
+              adds dynamic provisioning — the PV gets created automatically when PVC is submitted, no manual PV creation
+              needed."</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#5d9e5d"></span>YAML — PV + PVC + Pod using it
+        </div>
+        <div class="card-body">
+          <pre>apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: my-pv
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce          # RWO
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: manual   # must match PVC
+  hostPath:                  # for local/dev (use NFS/EBS in prod)
+    path: /mnt/data
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: my-pvc
+  namespace: my-app
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi           # request <= PV capacity
+  storageClassName: manual   # must match PV
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-with-storage
+  namespace: my-app
+spec:
+  containers:
+  - name: app
+    image: nginx
+    volumeMounts:
+    - name: storage
+      mountPath: /data
+  volumes:
+  - name: storage
+    persistentVolumeClaim:
+      claimName: my-pvc      # reference PVC, not PV</pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#d4850f"></span>Imperative Commands ⚡</div>
+        <div class="card-body">
+          <div class="imp-box">
+            <p>kubectl commands</p>
+            <span class="imp-cmd"><span class="imp-comment"># No direct imperative command for PV/PVC creation — use
+                YAML</span></span>
+            <span class="imp-cmd"><span class="imp-comment"># But useful commands:</span></span>
+            <span class="imp-cmd">kubectl get pv <span class="imp-comment"># list all PVs</span></span>
+            <span class="imp-cmd">kubectl get pvc -n my-app <span class="imp-comment"># list PVCs in ns</span></span>
+            <span class="imp-cmd">kubectl describe pvc my-pvc -n my-app <span class="imp-comment"># check
+                binding</span></span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Check PVC status — should be "Bound"</span></span>
+            <span class="imp-cmd">kubectl get pvc my-pvc -n my-app -o wide</span>
+          </div>
+          <div class="tip" style="margin-top:12px">
+            <span class="tip-icon">⚡</span>
+            <span>PVC stays in <strong>Pending</strong> state if no PV matches. Check: storage class name, access mode,
+              and capacity must all match!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- POD -->
+    <div class="section" id="pod">
+      <div class="section-header">
+        <span class="section-badge" style="background:#b87d2f">05</span>
+        <h1>Pod</h1>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#e67e22"></span>Concept</div>
+        <div class="card-body">
+          <p class="concept-text">A <strong>Pod</strong> is the <strong>smallest deployable unit</strong> in K8s. It
+            wraps one or more containers that share the same network namespace and storage. Containers in a Pod
+            communicate via <code class="inline">localhost</code>. Pods are <strong>ephemeral</strong> — when they die,
+            they're gone. That's why you use Deployments/StatefulSets to manage them. Key concepts: <strong>init
+              containers</strong> (run before app), <strong>sidecar containers</strong> (run alongside app),
+            <strong>resource requests/limits</strong>.</p>
+          <div class="interview-box">
+            <p>"A Pod is the atomic unit of scheduling in Kubernetes. It hosts one or more tightly-coupled containers
+              that share an IP address, hostname, and storage volumes. In practice, most pods have one container —
+              multi-container pods are used for sidecar patterns like log shipping or service mesh proxies. Pods are
+              ephemeral by design; you never manage them directly in production. Instead, controllers like Deployment or
+              StatefulSet manage pods and ensure the desired count is always running. Resource requests are used for
+              scheduling decisions, while limits enforce runtime constraints."</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#5d9e5d"></span>YAML — Full-blown Pod</div>
+        <div class="card-body">
+          <pre>apiVersion: v1
+kind: Pod
+metadata:
+  name: full-app-pod
+  namespace: my-app
+  labels:
+    app: myapp
+    version: "1.0"
+spec:
+  # Init container runs first, completes, then app starts
+  initContainers:
+  - name: init-db-check
+    image: busybox
+    command: ['sh', '-c', 'until nc -z postgres-service 5432; do sleep 2; done']
+
+  containers:
+  - name: app
+    image: myapp:1.0
+    ports:
+    - containerPort: 8080
+    # Resources
+    resources:
+      requests:
+        memory: "128Mi"
+        cpu: "250m"
+      limits:
+        memory: "256Mi"
+        cpu: "500m"
+    # Env from ConfigMap + Secret
+    envFrom:
+    - configMapRef:
+        name: app-config
+    - secretRef:
+        name: app-secret
+    # Liveness + Readiness probes
+    livenessProbe:
+      httpGet:
+        path: /healthz
+        port: 8080
+      initialDelaySeconds: 10
+      periodSeconds: 10
+    readinessProbe:
+      httpGet:
+        path: /ready
+        port: 8080
+      initialDelaySeconds: 5
+      periodSeconds: 5
+    volumeMounts:
+    - name: storage
+      mountPath: /data
+    - name: config-volume
+      mountPath: /etc/config
+
+  # Sidecar container
+  - name: log-shipper
+    image: fluentd:latest
+    volumeMounts:
+    - name: shared-logs
+      mountPath: /var/log
+
+  volumes:
+  - name: storage
+    persistentVolumeClaim:
+      claimName: my-pvc
+  - name: config-volume
+    configMap:
+      name: app-config
+  - name: shared-logs
+    emptyDir: {}
+
+  restartPolicy: Always   # Always | OnFailure | Never</pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#d4850f"></span>Imperative Commands ⚡</div>
+        <div class="card-body">
+          <div class="imp-box">
+            <p>kubectl commands</p>
+            <span class="imp-cmd">kubectl run nginx-pod --image=nginx --port=80</span>
+            <span class="imp-cmd">kubectl run nginx-pod --image=nginx --dry-run=client -o yaml > pod.yaml</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># With env vars</span></span>
+            <span class="imp-cmd">kubectl run app --image=myapp --env="ENV=prod" --env="PORT=8080"</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># With resource limits</span></span>
+            <span class="imp-cmd">kubectl run app --image=myapp --requests='cpu=100m,memory=128Mi' \</span>
+            <span class="imp-cmd"> --limits='cpu=200m,memory=256Mi'</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Execute command in pod</span></span>
+            <span class="imp-cmd">kubectl exec -it nginx-pod -- /bin/bash</span>
+            <span class="imp-cmd">kubectl exec nginx-pod -- env | grep APP</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Logs</span></span>
+            <span class="imp-cmd">kubectl logs nginx-pod -f <span class="imp-comment"># follow</span></span>
+            <span class="imp-cmd">kubectl logs nginx-pod -c log-shipper <span class="imp-comment"># specific
+                container</span></span>
+            <span class="imp-cmd">kubectl logs nginx-pod --previous <span class="imp-comment"># crashed pod
+                logs</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REPLICASET -->
+    <div class="section" id="replicaset">
+      <div class="section-header">
+        <span class="section-badge" style="background:#e67e22">06</span>
+        <h1>ReplicaSet</h1>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#e67e22"></span>Concept</div>
+        <div class="card-body">
+          <p class="concept-text">A <strong>ReplicaSet</strong> ensures a <strong>specified number of Pod
+              replicas</strong> are running at all times. If a pod dies, RS creates a new one. Uses a <strong>label
+              selector</strong> to track pods. <br><br>⚠️ <strong>In practice — don't use RS directly!</strong> Use
+            <strong>Deployment</strong> instead which manages RS and adds rolling updates + rollback capabilities. RS is
+            the underlying mechanism Deployment uses.</p>
+          <div class="interview-box">
+            <p>"ReplicaSet is a controller that maintains a stable set of replica pods running at any given time. It
+              uses label selectors to identify which pods it manages. If you manually delete a pod, the ReplicaSet
+              notices the actual count doesn't match desired count and creates a new one. However, ReplicaSet alone has
+              no rollout strategy — you can't do rolling updates with it. That's why in production we always use
+              Deployment, which owns a ReplicaSet and adds update strategies, rollback, and pause/resume capabilities on
+              top."</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#5d9e5d"></span>YAML</div>
+        <div class="card-body">
+          <pre>apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: app-rs
+  namespace: my-app
+spec:
+  replicas: 3
+  selector:            # RS uses this to find/track pods
+    matchLabels:
+      app: myapp       # MUST match pod template labels
+  template:
+    metadata:
+      labels:
+        app: myapp     # MUST match selector
+    spec:
+      containers:
+      - name: app
+        image: myapp:1.0
+        ports:
+        - containerPort: 8080</pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#d4850f"></span>Imperative Commands ⚡</div>
+        <div class="card-body">
+          <div class="imp-box">
+            <p>kubectl commands</p>
+            <span class="imp-cmd"><span class="imp-comment"># No direct imperative for RS — generate YAML:</span></span>
+            <span class="imp-cmd">kubectl get rs -n my-app</span>
+            <span class="imp-cmd">kubectl describe rs app-rs -n my-app</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Scale replicaset</span></span>
+            <span class="imp-cmd">kubectl scale rs app-rs --replicas=5 -n my-app</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEPLOYMENT -->
+    <div class="section" id="deployment">
+      <div class="section-header">
+        <span class="section-badge" style="background:#e67e22">07</span>
+        <h1>Deployment</h1>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#e67e22"></span>Concept</div>
+        <div class="card-body">
+          <p class="concept-text">A <strong>Deployment</strong> manages ReplicaSets and adds <strong>declarative
+              updates</strong>. It's the most common workload for <strong>stateless apps</strong>. Key features:
+            <strong>rolling updates</strong> (zero downtime), <strong>rollback</strong>, <strong>scaling</strong>,
+            <strong>pause/resume</strong>.<br><br>
+            <strong>Strategy types:</strong><br>
+            • <code class="inline">RollingUpdate</code>: gradual replacement (default) — configurable via <code
+              class="inline">maxSurge</code> / <code class="inline">maxUnavailable</code><br>
+            • <code class="inline">Recreate</code>: kill all pods then create new (causes downtime)
+          </p>
+          <div class="interview-box">
+            <p>"Deployment is the standard way to run stateless applications in Kubernetes. It manages one or more
+              ReplicaSets — when you update the Deployment, it creates a new RS and gradually shifts traffic from old to
+              new RS, that's your rolling update. You can control the speed with maxSurge (extra pods during update) and
+              maxUnavailable (pods that can go down). Every update creates a new RS, and Kubernetes keeps old RSes for
+              rollback. You can roll back with kubectl rollout undo, which just swaps which RS is active. It's an
+              immutable history of your rollouts."</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#5d9e5d"></span>YAML — Full Deployment</div>
+        <div class="card-body">
+          <pre>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+  namespace: my-app
+  labels:
+    app: myapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1          # max extra pods during update
+      maxUnavailable: 0    # no downtime (0 = zero-downtime)
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: app
+        image: myapp:1.0
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "256Mi"
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5</pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#d4850f"></span>Imperative Commands ⚡</div>
+        <div class="card-body">
+          <div class="imp-box">
+            <p>kubectl commands</p>
+            <span class="imp-cmd">kubectl create deployment app-deploy --image=myapp:1.0 --replicas=3</span>
+            <span class="imp-cmd">kubectl create deployment app-deploy --image=myapp:1.0 --dry-run=client -o yaml</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Scale</span></span>
+            <span class="imp-cmd">kubectl scale deployment app-deploy --replicas=5 -n my-app</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Update image (triggers rolling update)</span></span>
+            <span class="imp-cmd">kubectl set image deployment/app-deploy app=myapp:2.0 -n my-app</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Check rollout status</span></span>
+            <span class="imp-cmd">kubectl rollout status deployment/app-deploy -n my-app</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Rollback to previous version</span></span>
+            <span class="imp-cmd">kubectl rollout undo deployment/app-deploy -n my-app</span>
+            <span class="imp-cmd">kubectl rollout undo deployment/app-deploy --to-revision=2</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># View history</span></span>
+            <span class="imp-cmd">kubectl rollout history deployment/app-deploy</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Pause/Resume rolling update</span></span>
+            <span class="imp-cmd">kubectl rollout pause deployment/app-deploy</span>
+            <span class="imp-cmd">kubectl rollout resume deployment/app-deploy</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATEFULSET -->
+    <div class="section" id="statefulset">
+      <div class="section-header">
+        <span class="section-badge" style="background:#d4850f">08</span>
+        <h1>StatefulSet</h1>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#e67e22"></span>Concept</div>
+        <div class="card-body">
+          <p class="concept-text">A <strong>StatefulSet</strong> manages stateful applications that need <strong>stable
+              identity</strong> and <strong>persistent storage</strong>. Unlike Deployment, each pod gets:<br>
+            • <strong>Sticky identity</strong>: <code class="inline">pod-0</code>, <code class="inline">pod-1</code>,
+            <code class="inline">pod-2</code> (not random names)<br>
+            • <strong>Stable DNS</strong>: <code class="inline">pod-0.service.ns.svc.cluster.local</code><br>
+            • <strong>Per-pod PVC</strong>: via <code class="inline">volumeClaimTemplates</code><br><br>
+            Use for: <strong>databases</strong> (MySQL, PostgreSQL, MongoDB), <strong>Kafka</strong>,
+            <strong>Zookeeper</strong>, <strong>Elasticsearch</strong>. Requires a <strong>Headless Service</strong>.
+          </p>
+          <div class="interview-box">
+            <p>"StatefulSet is for stateful workloads where pods need a stable network identity and persistent storage
+              that survives pod restarts. The key difference from Deployment is that pods are created and deleted in
+              order — pod-0 must be Running before pod-1 starts. Each pod has a predictable DNS name through a headless
+              service. volumeClaimTemplates creates a separate PVC for each pod, so pod-0 always gets pvc-0 even after
+              rescheduling. This is essential for databases where each replica node needs its own dedicated storage and
+              stable hostname for replication configuration."</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#5d9e5d"></span>YAML</div>
+        <div class="card-body">
+          <pre>apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-headless         # Headless service for DNS
+  namespace: my-app
+spec:
+  clusterIP: None              # Makes it headless!
+  selector:
+    app: mysql
+  ports:
+  - port: 3306
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql
+  namespace: my-app
+spec:
+  serviceName: mysql-headless  # MUST reference headless service
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:8.0
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: password
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - name: data
+          mountPath: /var/lib/mysql
+  # Each pod gets its own PVC!
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 10Gi</pre>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#d4850f"></span>Imperative Commands ⚡</div>
+        <div class="card-body">
+          <div class="imp-box">
+            <p>kubectl commands</p>
+            <span class="imp-cmd"><span class="imp-comment"># No direct imperative — use YAML. Useful
+                debugging:</span></span>
+            <span class="imp-cmd">kubectl get statefulset -n my-app</span>
+            <span class="imp-cmd">kubectl get pods -l app=mysql -n my-app <span class="imp-comment"># see pod-0, pod-1,
+                pod-2</span></span>
+            <span class="imp-cmd">kubectl scale statefulset mysql --replicas=5 -n my-app</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Access specific pod by DNS</span></span>
+            <span class="imp-cmd"><span class="imp-comment">#
+                mysql-0.mysql-headless.my-app.svc.cluster.local</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAEMONSET -->
+    <div class="section" id="daemonset">
+      <div class="section-header">
+        <span class="section-badge" style="background:#e67e22;color:#111">09</span>
+        <h1>DaemonSet</h1>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#e67e22"></span>Concept</div>
+        <div class="card-body">
+          <p class="concept-text">A <strong>DaemonSet</strong> ensures <strong>one pod runs on every node</strong> (or a
+            subset via node selectors). When nodes are added to cluster, pods are added automatically. When nodes are
+            removed, pods are garbage collected.<br><br>
+            Use cases: <strong>log collectors</strong> (Fluentd, Filebeat), <strong>monitoring agents</strong>
+            (Prometheus node-exporter, Datadog), <strong>network plugins</strong> (CNI like Calico, Weave),
+            <strong>storage daemons</strong>.</p>
+          <div class="interview-box">
+            <p>"DaemonSet guarantees that a copy of a pod runs on every node — or a subset if you use nodeSelector or
+              affinity rules. It's cluster infrastructure stuff — log shippers, monitoring agents, network proxies,
+              anything that needs to run at the node level. Unlike Deployment where you specify replica count, DaemonSet
+              is implicitly replicas=number-of-nodes. When you add a node, K8s automatically schedules the DaemonSet pod
+              on it. It also tolerates the control-plane taint by default in newer K8s versions so it can run on master
+              nodes too for system-level agents."</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#5d9e5d"></span>YAML</div>
+        <div class="card-body">
+          <pre>apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: log-collector
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      app: fluentd
+  template:
+    metadata:
+      labels:
+        app: fluentd
+    spec:
+      tolerations:             # Run on master/control-plane too
+      - key: node-role.kubernetes.io/control-plane
+        effect: NoSchedule
+      containers:
+      - name: fluentd
+        image: fluentd:latest
+        resources:
+          limits:
+            memory: "200Mi"
+            cpu: "100m"
+        volumeMounts:
+        - name: varlog
+          mountPath: /var/log
+        - name: varlibdockercontainers
+          mountPath: /var/lib/docker/containers
+          readOnly: true
+      volumes:
+      - name: varlog
+        hostPath:
+          path: /var/log
+      - name: varlibdockercontainers
+        hostPath:
+          path: /var/lib/docker/containers</pre>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#d4850f"></span>Imperative Commands ⚡</div>
+        <div class="card-body">
+          <div class="imp-box">
+            <p>kubectl commands</p>
+            <span class="imp-cmd">kubectl get daemonset -n kube-system</span>
+            <span class="imp-cmd">kubectl describe ds log-collector -n kube-system</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Trick: generate YAML from deployment then change
+                kind</span></span>
+            <span class="imp-cmd">kubectl create deployment log-ds --image=fluentd --dry-run=client -o yaml \</span>
+            <span class="imp-cmd"> | sed 's/kind: Deployment/kind: DaemonSet/' \</span>
+            <span class="imp-cmd"> | sed '/replicas/d' | sed '/strategy/d' > ds.yaml</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JOB -->
+    <div class="section" id="job">
+      <div class="section-header">
+        <span class="section-badge" style="background:#5d9e5d">10</span>
+        <h1>Job</h1>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#e67e22"></span>Concept</div>
+        <div class="card-body">
+          <p class="concept-text">A <strong>Job</strong> runs pods to <strong>completion</strong> (not indefinitely like
+            Deployment). It guarantees that a specified number of pods <strong>successfully terminate</strong>. Key
+            params:<br>
+            • <code class="inline">completions</code>: how many successful pod completions needed<br>
+            • <code class="inline">parallelism</code>: how many pods run simultaneously<br>
+            • <code class="inline">backoffLimit</code>: retry limit before marking job failed<br>
+            • <code class="inline">activeDeadlineSeconds</code>: max job duration<br>
+            Use <code class="inline">restartPolicy: OnFailure</code> or <code class="inline">Never</code> (not Always).
+          </p>
+          <div class="interview-box">
+            <p>"Job creates one or more pods and tracks successful completions. When completions are reached, the job is
+              done. For batch processing, you set parallelism to run multiple pods simultaneously and completions to
+              total tasks. The key difference from a Deployment is that a Job terminates — pods aren't restarted after
+              success. You use restartPolicy: OnFailure so failed pods retry, or Never to get a new pod each attempt.
+              BackoffLimit controls how many times a failed pod retries before the whole job fails."</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#5d9e5d"></span>YAML</div>
+        <div class="card-body">
+          <pre>apiVersion: batch/v1
+kind: Job
+metadata:
+  name: data-processor
+  namespace: my-app
+spec:
+  completions: 10          # total successful completions needed
+  parallelism: 3           # 3 pods at a time
+  backoffLimit: 4          # retry 4 times before fail
+  activeDeadlineSeconds: 300  # fail if not done in 5min
+  template:
+    spec:
+      restartPolicy: OnFailure  # OnFailure or Never (NOT Always!)
+      containers:
+      - name: processor
+        image: python:3.9
+        command: ["python", "-c", "print('Processing batch job')"]
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "64Mi"</pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#d4850f"></span>Imperative Commands ⚡</div>
+        <div class="card-body">
+          <div class="imp-box">
+            <p>kubectl commands</p>
+            <span class="imp-cmd">kubectl create job my-job --image=busybox -- echo "hello"</span>
+            <span class="imp-cmd">kubectl create job my-job --image=busybox --dry-run=client -o yaml -- echo
+              "hello"</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd">kubectl get jobs -n my-app</span>
+            <span class="imp-cmd">kubectl describe job data-processor</span>
+            <span class="imp-cmd">kubectl logs job/data-processor</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CRONJOB -->
+    <div class="section" id="cronjob">
+      <div class="section-header">
+        <span class="section-badge" style="background:#e67e22">11</span>
+        <h1>CronJob</h1>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#e67e22"></span>Concept</div>
+        <div class="card-body">
+          <p class="concept-text">A <strong>CronJob</strong> creates <strong>Jobs on a schedule</strong> (like Linux
+            cron). Uses standard cron syntax: <code class="inline">* * * * *</code> (minute hour day month weekday). Key
+            params:<br>
+            • <code class="inline">successfulJobsHistoryLimit</code>: keep N successful jobs (default 3)<br>
+            • <code class="inline">failedJobsHistoryLimit</code>: keep N failed jobs (default 1)<br>
+            • <code class="inline">concurrencyPolicy</code>: <code class="inline">Allow</code> | <code
+              class="inline">Forbid</code> | <code class="inline">Replace</code><br>
+            • <code class="inline">startingDeadlineSeconds</code>: deadline to start if missed window</p>
+          <div class="interview-box">
+            <p>"CronJob is a layer on top of Job that runs it on a schedule using cron syntax. CronJob creates a Job,
+              which creates Pods. So it's CronJob → Job → Pod. The concurrencyPolicy is important — Allow means multiple
+              scheduled jobs can run simultaneously, Forbid skips new job if previous is still running, Replace kills
+              the old and starts new. You need to manage job history to avoid accumulating too many completed jobs — use
+              successfulJobsHistoryLimit and failedJobsHistoryLimit to control that."</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#5d9e5d"></span>YAML</div>
+        <div class="card-body">
+          <pre>apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: daily-backup
+  namespace: my-app
+spec:
+  schedule: "0 2 * * *"        # Every day at 2 AM
+  # schedule: "*/5 * * * *"   # Every 5 minutes
+  concurrencyPolicy: Forbid    # Don't run if previous still running
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  startingDeadlineSeconds: 60  # Start within 60s of schedule or skip
+  jobTemplate:                 # Job spec goes here
+    spec:
+      backoffLimit: 2
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: backup
+            image: backup-tool:latest
+            command: ["/bin/sh", "-c", "pg_dump -h postgres > /backup/dump.sql"]
+            volumeMounts:
+            - name: backup-storage
+              mountPath: /backup
+          volumes:
+          - name: backup-storage
+            persistentVolumeClaim:
+              claimName: backup-pvc</pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#d4850f"></span>Imperative Commands ⚡</div>
+        <div class="card-body">
+          <div class="imp-box">
+            <p>kubectl commands</p>
+            <span class="imp-cmd">kubectl create cronjob daily-backup --image=busybox --schedule="0 2 * * *" -- echo
+              backup</span>
+            <span class="imp-cmd">kubectl create cronjob my-cj --image=busybox --schedule="*/5 * * * *" --dry-run=client
+              -o yaml</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd">kubectl get cronjob -n my-app</span>
+            <span class="imp-cmd">kubectl get jobs -n my-app <span class="imp-comment"># see jobs created by
+                cronjob</span></span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Manually trigger a cronjob</span></span>
+            <span class="imp-cmd">kubectl create job manual-run --from=cronjob/daily-backup</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SERVICE -->
+    <div class="section" id="service">
+      <div class="section-header">
+        <span class="section-badge" style="background:#e67e22;color:#111">12</span>
+        <h1>Service Types</h1>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#e67e22"></span>Concept</div>
+        <div class="card-body">
+          <p class="concept-text">A <strong>Service</strong> exposes pods via a <strong>stable network
+              endpoint</strong>. Pods come and go but Service IP stays. Uses <strong>label selectors</strong> to find
+            target pods and kube-proxy to route traffic.</p>
+          <table>
+            <tr>
+              <th>Type</th>
+              <th>Access</th>
+              <th>Use case</th>
+            </tr>
+            <tr>
+              <td><span class="tag tag-blue">ClusterIP</span></td>
+              <td>Internal only</td>
+              <td>Default. Pod-to-pod communication</td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-green">NodePort</span></td>
+              <td>Node IP:Port</td>
+              <td>Dev/test external access (30000-32767)</td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-yellow">LoadBalancer</span></td>
+              <td>Cloud LB IP</td>
+              <td>Production cloud external access</td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-purple">ExternalName</span></td>
+              <td>DNS alias</td>
+              <td>Alias external service (no selector)</td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-cyan">Headless</span></td>
+              <td>Direct pod IPs</td>
+              <td>StatefulSets, service discovery</td>
+            </tr>
+          </table>
+          <div class="interview-box">
+            <p>"Service provides stable DNS and IP for a dynamic set of pods. ClusterIP is default — only reachable
+              within the cluster. NodePort extends it and opens a port on every node's IP. LoadBalancer extends NodePort
+              and provisions a cloud load balancer in front. The key insight is they're additive — LoadBalancer creates
+              NodePort creates ClusterIP. For StatefulSets you use a headless service — clusterIP: None — which returns
+              the actual pod IPs from DNS instead of a virtual IP, so clients can connect directly to individual pods."
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#5d9e5d"></span>YAML — All Service Types</div>
+        <div class="card-body">
+          <pre># 1. ClusterIP (default - internal only)
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-svc
+  namespace: my-app
+spec:
+  type: ClusterIP
+  selector:
+    app: myapp
+  ports:
+  - port: 80         # service port
+    targetPort: 8080 # container port
+    protocol: TCP
+
+---
+# 2. NodePort (external via node IP)
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-nodeport
+spec:
+  type: NodePort
+  selector:
+    app: myapp
+  ports:
+  - port: 80
+    targetPort: 8080
+    nodePort: 30080   # optional, auto-assigned if omitted (30000-32767)
+
+---
+# 3. LoadBalancer (cloud provider LB)
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-lb
+spec:
+  type: LoadBalancer
+  selector:
+    app: myapp
+  ports:
+  - port: 80
+    targetPort: 8080
+
+---
+# 4. Headless (StatefulSet / direct pod access)
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-headless
+spec:
+  clusterIP: None   # This makes it headless!
+  selector:
+    app: mysql
+  ports:
+  - port: 3306
+
+---
+# 5. ExternalName (alias to external DNS)
+apiVersion: v1
+kind: Service
+metadata:
+  name: external-db
+spec:
+  type: ExternalName
+  externalName: my-database.rds.amazonaws.com  # no selector!</pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#d4850f"></span>Imperative Commands ⚡</div>
+        <div class="card-body">
+          <div class="imp-box">
+            <p>kubectl commands</p>
+            <span class="imp-cmd"><span class="imp-comment"># Expose a deployment as ClusterIP</span></span>
+            <span class="imp-cmd">kubectl expose deployment app-deploy --port=80 --target-port=8080</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Expose as NodePort</span></span>
+            <span class="imp-cmd">kubectl expose deployment app-deploy --type=NodePort --port=80
+              --target-port=8080</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Create service directly</span></span>
+            <span class="imp-cmd">kubectl create service clusterip my-svc --tcp=80:8080</span>
+            <span class="imp-cmd">kubectl create service nodeport my-svc --tcp=80:8080 --node-port=30080</span>
+            <span class="imp-cmd">kubectl create service loadbalancer my-svc --tcp=80:8080</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Get service endpoints</span></span>
+            <span class="imp-cmd">kubectl get endpoints app-svc -n my-app</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Test connectivity from inside cluster</span></span>
+            <span class="imp-cmd">kubectl run test --image=busybox --rm -it -- wget -qO- http://app-svc</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HPA -->
+    <div class="section" id="hpa">
+      <div class="section-header">
+        <span class="section-badge" style="background:#b87d2f">13</span>
+        <h1>HPA — Horizontal Pod Autoscaler</h1>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#e67e22"></span>Concept</div>
+        <div class="card-body">
+          <p class="concept-text"><strong>HPA</strong> automatically <strong>scales pod count</strong> based on observed
+            metrics. Runs as a control loop (every 15s by default).<br><br>
+            <strong>CPU-based HPA</strong>: Built-in. Uses Metrics Server. Scales when average CPU across pods crosses
+            target %.<br><br>
+            <strong>KEDA (Kubernetes Event Driven Autoscaler)</strong>: External operator. Scales based on <strong>event
+              sources</strong> — queue length (RabbitMQ, SQS, Kafka), cron, Prometheus metrics, etc. Can scale
+            <strong>to 0</strong> (saves cost). CPU HPA cannot scale to 0.
+          </p>
+          <div class="interview-box">
+            <p>"HPA watches resource metrics and adjusts replica count. The standard HPA uses CPU and memory from the
+              metrics server — if average CPU exceeds your target, it scales up. KEDA extends this with 50+ scalers for
+              event-driven sources. The critical advantage of KEDA over CPU-HPA is scale-to-zero — if there are no
+              messages in your queue, KEDA scales to 0 replicas. CPU-HPA can only scale to minReplicas (minimum 1). For
+              microservices processing async jobs from a queue, KEDA is the right choice. For typical HTTP services,
+              CPU-based HPA is simpler and sufficient."</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#5d9e5d"></span>YAML — CPU HPA &amp; KEDA</div>
+        <div class="card-body">
+          <pre># CPU-based HPA (requires metrics-server installed)
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: app-hpa
+  namespace: my-app
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: app-deployment
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70    # scale up if CPU > 70%
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+
+---
+# KEDA ScaledObject (scale based on queue length)
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: app-keda-scaler
+  namespace: my-app
+spec:
+  scaleTargetRef:
+    name: app-deployment
+  minReplicaCount: 0            # KEDA can scale to ZERO!
+  maxReplicaCount: 20
+  triggers:
+  - type: rabbitmq
+    metadata:
+      host: amqp://rabbitmq:5672
+      queueName: tasks
+      queueLength: "5"          # 1 pod per 5 messages in queue</pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#d4850f"></span>Imperative Commands ⚡</div>
+        <div class="card-body">
+          <div class="imp-box">
+            <p>kubectl commands</p>
+            <span class="imp-cmd"><span class="imp-comment"># Create HPA imperatively (CPU)</span></span>
+            <span class="imp-cmd">kubectl autoscale deployment app-deployment --cpu-percent=70 --min=2 --max=10</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd">kubectl get hpa -n my-app</span>
+            <span class="imp-cmd">kubectl describe hpa app-hpa -n my-app <span class="imp-comment"># see current
+                metrics</span></span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Generate YAML</span></span>
+            <span class="imp-cmd">kubectl autoscale deployment app-deployment --cpu-percent=70 --min=2 --max=10 \</span>
+            <span class="imp-cmd"> --dry-run=client -o yaml</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#d4850f"></span>HPA vs KEDA Comparison</div>
+        <div class="card-body">
+          <table>
+            <tr>
+              <th>Feature</th>
+              <th>HPA (CPU)</th>
+              <th>KEDA</th>
+            </tr>
+            <tr>
+              <td>Scale to zero</td>
+              <td>❌ min 1</td>
+              <td>✅ yes</td>
+            </tr>
+            <tr>
+              <td>Event sources</td>
+              <td>CPU, Memory</td>
+              <td>50+ (queue, cron, DB, Prometheus...)</td>
+            </tr>
+            <tr>
+              <td>Installation</td>
+              <td>Built-in</td>
+              <td>Separate operator</td>
+            </tr>
+            <tr>
+              <td>Best for</td>
+              <td>HTTP services</td>
+              <td>Async/event-driven workloads</td>
+            </tr>
+            <tr>
+              <td>Lag before scale</td>
+              <td>~15-30s</td>
+              <td>Near real-time</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- VPA -->
+    <div class="section" id="vpa">
+      <div class="section-header">
+        <span class="section-badge" style="background:#e67e22">14</span>
+        <h1>VPA — Vertical Pod Autoscaler</h1>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#e67e22"></span>Concept</div>
+        <div class="card-body">
+          <p class="concept-text"><strong>VPA</strong> automatically adjusts <strong>CPU and memory
+              requests/limits</strong> for containers (vertical scaling = more resources, not more pods). It has 3
+            modes:<br>
+            • <code class="inline">Off</code>: Only recommend, no auto-apply<br>
+            • <code class="inline">Initial</code>: Apply only at pod creation<br>
+            • <code class="inline">Auto</code>: Apply and restart pods when needed<br><br>
+            ⚠️ <strong>VPA + HPA conflict!</strong> Don't use both on same target for CPU/Memory. Use VPA for vertical,
+            HPA for horizontal, or use HPA with custom metrics + VPA on non-conflicting resources.</p>
+          <div class="interview-box">
+            <p>"VPA solves the problem of right-sizing — developers often over-provision CPU/memory to be safe, wasting
+              resources. VPA observes actual usage over time and recommends or automatically adjusts resource requests
+              and limits. In Auto mode, it will evict and restart pods with updated resources. The main drawback is that
+              restarting pods causes brief disruption. So for production, many teams use Recommendation mode to get
+              suggestions and apply them during maintenance windows. VPA and HPA shouldn't both be targeting the same
+              CPU metric — they'll fight each other. Safe combo is HPA on CPU + VPA in recommendation-only mode."</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#5d9e5d"></span>YAML</div>
+        <div class="card-body">
+          <pre>apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: app-vpa
+  namespace: my-app
+spec:
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: app-deployment
+  updatePolicy:
+    updateMode: "Auto"    # "Off" | "Initial" | "Auto"
+  resourcePolicy:
+    containerPolicies:
+    - containerName: "*"   # apply to all containers
+      minAllowed:
+        cpu: 100m
+        memory: 50Mi
+      maxAllowed:
+        cpu: "2"
+        memory: 2Gi
+      controlledResources: ["cpu", "memory"]</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAINTS & TOLERATIONS -->
+    <div class="section" id="taints">
+      <div class="section-header">
+        <span class="section-badge" style="background:#c0392b">15</span>
+        <h1>Taints &amp; Tolerations</h1>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#e67e22"></span>Concept</div>
+        <div class="card-body">
+          <p class="concept-text"><strong>Taints</strong> are applied to <strong>Nodes</strong> — they repel pods that
+            can't tolerate them.<br>
+            <strong>Tolerations</strong> are applied to <strong>Pods</strong> — they allow pods to schedule on tainted
+            nodes.<br><br>
+            <strong>Taint effects:</strong><br>
+            • <code class="inline">NoSchedule</code>: New pods won't schedule. Existing pods stay.<br>
+            • <code class="inline">PreferNoSchedule</code>: Try not to schedule (soft).<br>
+            • <code class="inline">NoExecute</code>: Evict existing pods too (hard). Pod needs toleration or gets
+            kicked.<br><br>
+            ⚠️ Taints/Tolerations only say "this pod CAN go to tainted node" — it doesn't FORCE it there. Use
+            <strong>NodeAffinity</strong> for forcing.
+          </p>
+          <div class="interview-box">
+            <p>"Taints and tolerations are a push mechanism — taints push pods away from nodes. A taint on a node means
+              'no pod is allowed here unless they tolerate this taint'. Tolerations on pods say 'I can handle that
+              taint, don't reject me.' NoSchedule prevents future pods, NoExecute additionally evicts existing pods that
+              don't tolerate it. A classic use case is GPU nodes — you taint them with gpu=true:NoSchedule so general
+              workloads don't land on expensive GPU nodes, and only your ML pods that have the matching toleration get
+              scheduled there. But important — tolerations alone don't guarantee the pod goes to that node. You still
+              need node affinity or nodeSelector for that positive selection."</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#5d9e5d"></span>YAML + Commands</div>
+        <div class="card-body">
+          <pre># Taints are applied with kubectl (node level)
+# kubectl taint nodes node1 gpu=true:NoSchedule
+# kubectl taint nodes node1 gpu=true:NoSchedule-  (remove taint with -)
+
+# Pod with Toleration
+apiVersion: v1
+kind: Pod
+metadata:
+  name: gpu-pod
+spec:
+  tolerations:
+  - key: "gpu"
+    operator: "Equal"     # Equal | Exists
+    value: "true"
+    effect: "NoSchedule"  # NoSchedule | NoExecute | PreferNoSchedule
+  # - key: "gpu"
+  #   operator: "Exists"  # tolerates any value with key "gpu"
+  containers:
+  - name: ml-app
+    image: tensorflow/tensorflow:latest-gpu</pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#d4850f"></span>Imperative Commands ⚡</div>
+        <div class="card-body">
+          <div class="imp-box">
+            <p>kubectl commands</p>
+            <span class="imp-cmd"><span class="imp-comment"># Add taint to node</span></span>
+            <span class="imp-cmd">kubectl taint nodes node1 gpu=true:NoSchedule</span>
+            <span class="imp-cmd">kubectl taint nodes node1 env=prod:NoExecute</span>
+            <span class="imp-cmd">kubectl taint nodes node1 dedicated=backend:PreferNoSchedule</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Remove taint (append -)</span></span>
+            <span class="imp-cmd">kubectl taint nodes node1 gpu=true:NoSchedule-</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># View taints on nodes</span></span>
+            <span class="imp-cmd">kubectl describe node node1 | grep -i taint</span>
+            <span class="imp-cmd">kubectl get nodes -o json | jq '.items[].spec.taints'</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AFFINITY -->
+    <div class="section" id="affinity">
+      <div class="section-header">
+        <span class="section-badge" style="background:#e67e22;color:#111">16</span>
+        <h1>Node Affinity &amp; Pod Affinity</h1>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#e67e22"></span>Concept</div>
+        <div class="card-body">
+          <p class="concept-text"><strong>Node Affinity</strong>: PULL pods TOWARD specific nodes (based on node
+            labels). Advanced version of <code class="inline">nodeSelector</code>.<br>
+            • <code class="inline">requiredDuringSchedulingIgnoredDuringExecution</code>: Hard rule (MUST match)<br>
+            • <code class="inline">preferredDuringSchedulingIgnoredDuringExecution</code>: Soft rule (try to
+            match)<br><br>
+            <strong>Pod Affinity / Anti-Affinity</strong>: Schedule pods RELATIVE to other pods.<br>
+            • <strong>Affinity</strong>: "Schedule near pods with label X" (co-location)<br>
+            • <strong>Anti-Affinity</strong>: "Don't schedule near pods with label X" (spread out, HA)
+          </p>
+          <div class="interview-box">
+            <p>"Node affinity is the positive complement to taints — taints repel, affinity attracts. You label your
+              nodes (disk=ssd, region=us-east) and use requiredDuringScheduling for hard constraints or
+              preferredDuringScheduling for best-effort. Pod affinity is more nuanced — it says 'schedule me on the same
+              node or same zone as pods matching this selector'. Anti-affinity is the opposite — 'spread my replicas
+              across zones'. For high availability, you always use pod anti-affinity with
+              topologyKey=topology.kubernetes.io/zone to ensure replicas land in different availability zones, so one
+              zone failure doesn't take down your whole app."</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#5d9e5d"></span>YAML — Node Affinity + Pod
+          Anti-Affinity (HA setup)</div>
+        <div class="card-body">
+          <pre>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ha-deployment
+  namespace: my-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      affinity:
+        # NODE AFFINITY — schedule only on SSD nodes
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: disk-type
+                operator: In           # In | NotIn | Exists | DoesNotExist | Gt | Lt
+                values:
+                - ssd
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            preference:
+              matchExpressions:
+              - key: region
+                operator: In
+                values: [us-east-1]
+
+        # POD ANTI-AFFINITY — spread replicas across zones (HA!)
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                app: myapp             # don't schedule with other myapp pods
+            topologyKey: topology.kubernetes.io/zone  # one per zone
+
+        # POD AFFINITY — schedule near cache pods (co-location)
+        podAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 80
+            podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: redis-cache
+              topologyKey: kubernetes.io/hostname  # same node as redis
+
+      containers:
+      - name: app
+        image: myapp:1.0</pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#d4850f"></span>Cheatsheet — Operator Types</div>
+        <div class="card-body">
+          <table>
+            <tr>
+              <th>Operator</th>
+              <th>Meaning</th>
+              <th>Example</th>
+            </tr>
+            <tr>
+              <td><code class="inline">In</code></td>
+              <td>Label value is in list</td>
+              <td>disk-type In [ssd, nvme]</td>
+            </tr>
+            <tr>
+              <td><code class="inline">NotIn</code></td>
+              <td>Label value NOT in list</td>
+              <td>env NotIn [dev, staging]</td>
+            </tr>
+            <tr>
+              <td><code class="inline">Exists</code></td>
+              <td>Key exists (any value)</td>
+              <td>gpu Exists</td>
+            </tr>
+            <tr>
+              <td><code class="inline">DoesNotExist</code></td>
+              <td>Key doesn't exist</td>
+              <td>spot DoesNotExist</td>
+            </tr>
+            <tr>
+              <td><code class="inline">Gt</code></td>
+              <td>Greater than</td>
+              <td>cores Gt 4</td>
+            </tr>
+            <tr>
+              <td><code class="inline">Lt</code></td>
+              <td>Less than</td>
+              <td>memory Lt 8</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#c0392b"></span>Taints vs Affinity — Quick
+          Reference</div>
+        <div class="card-body">
+          <table>
+            <tr>
+              <th>Concept</th>
+              <th>Applied To</th>
+              <th>Direction</th>
+              <th>Type</th>
+            </tr>
+            <tr>
+              <td>Taint</td>
+              <td>Node</td>
+              <td>REPEL pods</td>
+              <td>Push (node says "go away")</td>
+            </tr>
+            <tr>
+              <td>Toleration</td>
+              <td>Pod</td>
+              <td>Accept taint</td>
+              <td>"I can handle that taint"</td>
+            </tr>
+            <tr>
+              <td>Node Affinity</td>
+              <td>Pod</td>
+              <td>ATTRACT to node</td>
+              <td>Pull (pod says "go here")</td>
+            </tr>
+            <tr>
+              <td>Pod Affinity</td>
+              <td>Pod</td>
+              <td>Near other pods</td>
+              <td>Co-locate</td>
+            </tr>
+            <tr>
+              <td>Pod Anti-Affinity</td>
+              <td>Pod</td>
+              <td>Away from pods</td>
+              <td>Spread for HA</td>
+            </tr>
+            <tr>
+              <td>nodeSelector</td>
+              <td>Pod</td>
+              <td>Exact label match</td>
+              <td>Simpler node affinity</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- Final CKA Tips -->
+      <div class="card" style="border-color:#e67e22;margin-top:24px">
+        <div class="card-header" style="background:rgba(230,126,34,.05);border-color:#e67e22"><span class="dot"
+            style="background:#e67e22"></span>⚡ CKA Exam Power Tips</div>
+        <div class="card-body">
+          <div class="imp-box" style="background:#1a1508;border-color:#3a2a10">
+            <p style="color:#f0a050">Must-know shortcuts for the exam</p>
+            <span class="imp-cmd" style="color:#f0a050"><span class="imp-comment"># 1. ALWAYS use --dry-run to generate
+                YAML fast</span></span>
+            <span class="imp-cmd" style="color:#f0a050">kubectl run pod --image=nginx --dry-run=client -o yaml >
+              pod.yaml</span>
+            <span class="imp-cmd" style="color:#f0a050">kubectl create deploy app --image=nginx --dry-run=client -o yaml
+              > deploy.yaml</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd" style="color:#f0a050"><span class="imp-comment"># 2. Edit running
+                resource</span></span>
+            <span class="imp-cmd" style="color:#f0a050">kubectl edit deployment app-deployment</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd" style="color:#f0a050"><span class="imp-comment"># 3. Apply changes
+                imperatively</span></span>
+            <span class="imp-cmd" style="color:#f0a050">kubectl apply -f pod.yaml</span>
+            <span class="imp-cmd" style="color:#f0a050">kubectl replace --force -f pod.yaml # delete + recreate</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd" style="color:#f0a050"><span class="imp-comment"># 4. jsonpath — extract specific
+                field</span></span>
+            <span class="imp-cmd" style="color:#f0a050">kubectl get pod my-pod -o jsonpath='{.status.podIP}'</span>
+            <span class="imp-cmd" style="color:#f0a050">kubectl get nodes -o jsonpath='{.items[*].metadata.name}'</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd" style="color:#f0a050"><span class="imp-comment"># 5. Watch resources in
+                real-time</span></span>
+            <span class="imp-cmd" style="color:#f0a050">kubectl get pods -w</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd" style="color:#f0a050"><span class="imp-comment"># 6. Check what went
+                wrong</span></span>
+            <span class="imp-cmd" style="color:#f0a050">kubectl describe pod my-pod | tail -20 # events section</span>
+            <span class="imp-cmd" style="color:#f0a050">kubectl events --for pod/my-pod</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd" style="color:#f0a050"><span class="imp-comment"># 7. Copy file to/from
+                pod</span></span>
+            <span class="imp-cmd" style="color:#f0a050">kubectl cp my-pod:/etc/config/app.conf ./app.conf</span>
+            <span class="imp-cmd" style="color:#f0a050">kubectl cp ./app.conf my-pod:/etc/config/app.conf</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd" style="color:#f0a050"><span class="imp-comment"># 8. Port forward for quick
+                testing</span></span>
+            <span class="imp-cmd" style="color:#f0a050">kubectl port-forward pod/my-pod 8080:80</span>
+            <span class="imp-cmd" style="color:#f0a050">kubectl port-forward svc/my-svc 8080:80</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
