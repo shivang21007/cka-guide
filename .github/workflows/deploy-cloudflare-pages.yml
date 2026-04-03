@@ -5,7 +5,8 @@ on:
     branches:
       - main
     paths:
-      - "cka-revision-page/**."
+      - "cka-revision-page/**"
+      - ".github/workflows/deploy-cloudflare-pages.yml"
 
   workflow_dispatch:
 
