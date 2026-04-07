@@ -136,8 +136,12 @@
     </div>
     <div class="sidebar-nav">
     <div class="nav-group">
+      <div class="nav-group-title">Overview</div>
+      <div class="nav-item active" data-section="syllabus-overview">📋 Syllabus</div>
+      <div class="nav-item" data-section="deploy-order">🗺 Deploy Order</div>
+    </div>
+    <div class="nav-group">
       <div class="nav-group-title">Foundations</div>
-      <div class="nav-item active" data-section="deploy-order">🗺 Deploy Order</div>
       <div class="nav-item" data-section="namespace">01 · Namespace</div>
       <div class="nav-item" data-section="configmap">02 · ConfigMap</div>
       <div class="nav-item" data-section="secret">03 · Secret</div>
@@ -156,13 +160,36 @@
     <div class="nav-group">
       <div class="nav-group-title">Networking</div>
       <div class="nav-item" data-section="service">12 · Service Types</div>
+      <div class="nav-item" data-section="ingress">13 · Ingress</div>
+      <div class="nav-item" data-section="networkpolicy">14 · Network Policies</div>
+      <div class="nav-item" data-section="coredns">15 · CoreDNS</div>
     </div>
     <div class="nav-group">
-      <div class="nav-group-title">Scaling & Scheduling</div>
-      <div class="nav-item" data-section="hpa">13 · HPA &amp; KEDA</div>
-      <div class="nav-item" data-section="vpa">14 · VPA</div>
-      <div class="nav-item" data-section="taints">15 · Taints &amp; Tolerations</div>
-      <div class="nav-item" data-section="affinity">16 · Affinity</div>
+      <div class="nav-group-title">Scaling &amp; Scheduling</div>
+      <div class="nav-item" data-section="hpa">16 · HPA &amp; KEDA</div>
+      <div class="nav-item" data-section="vpa">17 · VPA</div>
+      <div class="nav-item" data-section="taints">18 · Taints &amp; Tolerations</div>
+      <div class="nav-item" data-section="affinity">19 · Affinity</div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Cluster Architecture</div>
+      <div class="nav-item" data-section="rbac">20 · RBAC</div>
+      <div class="nav-item" data-section="kubeadm">21 · kubeadm</div>
+      <div class="nav-item" data-section="cluster-lifecycle">22 · Cluster Lifecycle</div>
+      <div class="nav-item" data-section="ha-control-plane">23 · HA Control Plane</div>
+      <div class="nav-item" data-section="helm-kustomize">24 · Helm &amp; Kustomize</div>
+      <div class="nav-item" data-section="cni-csi-cri">25 · CNI, CSI, CRI</div>
+      <div class="nav-item" data-section="crds-operators">26 · CRDs &amp; Operators</div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Storage</div>
+      <div class="nav-item" data-section="storageclass">27 · StorageClass</div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-title">Troubleshooting</div>
+      <div class="nav-item" data-section="troubleshoot-cluster">28 · Clusters &amp; Nodes</div>
+      <div class="nav-item" data-section="troubleshoot-workloads">29 · Workloads</div>
+      <div class="nav-item" data-section="troubleshoot-networking">30 · Networking</div>
     </div>
     </div>
     <div class="sidebar-footer">
@@ -171,6 +198,97 @@
   </nav>
 
   <main id="main">
+
+    <!-- SYLLABUS OVERVIEW -->
+    <div class="section" id="syllabus-overview">
+      <div class="section-header">
+        <span class="section-badge" style="background:#326ce5;color:#fff">SYLLABUS</span>
+        <h1>CKA Exam Domains &amp; Weightage</h1>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#326ce5"></span>Official CKA Domains (2026)</div>
+        <div class="card-body">
+          <div class="domain-grid">
+            <div class="domain-card">
+              <div class="domain-card-header">
+                <span class="domain-name">🔧 Troubleshooting</span>
+                <span class="domain-weight" style="background:#c0392b">30%</span>
+              </div>
+              <ul class="domain-topics">
+                <li><span style="color:#5d9e5d">✅</span> Troubleshoot clusters and nodes</li>
+                <li><span style="color:#5d9e5d">✅</span> Troubleshoot cluster components</li>
+                <li><span style="color:#5d9e5d">✅</span> Monitor cluster and application resource usage</li>
+                <li><span style="color:#5d9e5d">✅</span> Manage and evaluate container output streams</li>
+                <li><span style="color:#5d9e5d">✅</span> Troubleshoot services and networking</li>
+              </ul>
+              <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:100%;background:#c0392b"></div></div>
+            </div>
+            <div class="domain-card">
+              <div class="domain-card-header">
+                <span class="domain-name">🏗 Cluster Architecture, Installation &amp; Configuration</span>
+                <span class="domain-weight" style="background:#e67e22">25%</span>
+              </div>
+              <ul class="domain-topics">
+                <li><span style="color:#5d9e5d">✅</span> Manage role based access control (RBAC)</li>
+                <li><span style="color:#5d9e5d">✅</span> Prepare underlying infrastructure for installing a K8s cluster</li>
+                <li><span style="color:#5d9e5d">✅</span> Create and manage Kubernetes clusters using kubeadm</li>
+                <li><span style="color:#5d9e5d">✅</span> Manage the lifecycle of Kubernetes clusters</li>
+                <li><span style="color:#5d9e5d">✅</span> Implement and configure a highly-available control plane</li>
+                <li><span style="color:#5d9e5d">✅</span> Use Helm and Kustomize to install cluster components</li>
+                <li><span style="color:#5d9e5d">✅</span> Understand extension interfaces (CNI, CSI, CRI, etc.)</li>
+                <li><span style="color:#5d9e5d">✅</span> Understand CRDs, install and configure operators</li>
+              </ul>
+              <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:100%;background:#e67e22"></div></div>
+            </div>
+            <div class="domain-card">
+              <div class="domain-card-header">
+                <span class="domain-name">🌐 Services &amp; Networking</span>
+                <span class="domain-weight" style="background:#326ce5">20%</span>
+              </div>
+              <ul class="domain-topics">
+                <li><span style="color:#5d9e5d">✅</span> Understand connectivity between Pods</li>
+                <li><span style="color:#5d9e5d">✅</span> Define and enforce Network Policies</li>
+                <li><span style="color:#5d9e5d">✅</span> Use ClusterIP, NodePort, LoadBalancer service types</li>
+                <li><span style="color:#5d9e5d">✅</span> Use the Gateway API to manage Ingress traffic</li>
+                <li><span style="color:#5d9e5d">✅</span> Know how to use Ingress controllers and Ingress resources</li>
+                <li><span style="color:#5d9e5d">✅</span> Understand and use CoreDNS</li>
+              </ul>
+              <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:100%;background:#326ce5"></div></div>
+            </div>
+            <div class="domain-card">
+              <div class="domain-card-header">
+                <span class="domain-name">📦 Workloads &amp; Scheduling</span>
+                <span class="domain-weight" style="background:#5d9e5d">15%</span>
+              </div>
+              <ul class="domain-topics">
+                <li><span style="color:#5d9e5d">✅</span> Understand deployments and rolling update/rollbacks</li>
+                <li><span style="color:#5d9e5d">✅</span> Use ConfigMaps and Secrets to configure applications</li>
+                <li><span style="color:#5d9e5d">✅</span> Configure workload autoscaling</li>
+                <li><span style="color:#5d9e5d">✅</span> Understand primitives for robust, self-healing deployments</li>
+                <li><span style="color:#5d9e5d">✅</span> Configure Pod admission and scheduling</li>
+              </ul>
+              <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:100%;background:#5d9e5d"></div></div>
+            </div>
+            <div class="domain-card">
+              <div class="domain-card-header">
+                <span class="domain-name">💾 Storage</span>
+                <span class="domain-weight" style="background:#d4850f">10%</span>
+              </div>
+              <ul class="domain-topics">
+                <li><span style="color:#5d9e5d">✅</span> Implement storage classes and dynamic volume provisioning</li>
+                <li><span style="color:#5d9e5d">✅</span> Configure volume types, access modes and reclaim policies</li>
+                <li><span style="color:#5d9e5d">✅</span> Manage persistent volumes and persistent volume claims</li>
+              </ul>
+              <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:100%;background:#d4850f"></div></div>
+            </div>
+          </div>
+          <div class="tip" style="margin-top:16px">
+            <span class="tip-icon">💡</span>
+            <span><strong>Exam Strategy:</strong> Focus on Troubleshooting (30%) and Cluster Architecture (25%) first — together they make up 55% of the exam. All topics are fully covered in this guide.</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- DEPLOY ORDER -->
     <div class="section" id="deploy-order">
@@ -1385,7 +1503,8 @@ spec:
             <span class="imp-cmd"> </span>
             <span class="imp-cmd"><span class="imp-comment"># Create service directly</span></span>
             <span class="imp-cmd">kubectl create service clusterip my-svc --tcp=80:8080</span>
-            <span class="imp-cmd">kubectl create service nodeport my-svc --tcp=80:8080 --node-port=30080</span>
+            <span class="imp-cmd"><span class="imp-comment"># create type=NodePort then manually edit yaml for NodePort/span></span>
+            <span class="imp-cmd">kubectl create service nodeport my-svc --tcp=80:8080 --type=NodePort</span>
             <span class="imp-cmd">kubectl create service loadbalancer my-svc --tcp=80:8080</span>
             <span class="imp-cmd"> </span>
             <span class="imp-cmd"><span class="imp-comment"># Get service endpoints</span></span>
@@ -1393,6 +1512,297 @@ spec:
             <span class="imp-cmd"> </span>
             <span class="imp-cmd"><span class="imp-comment"># Test connectivity from inside cluster</span></span>
             <span class="imp-cmd">kubectl run test --image=busybox --rm -it -- wget -qO- http://app-svc</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INGRESS -->
+    <div class="section" id="ingress">
+      <div class="section-header">
+        <span class="section-badge" style="background:#326ce5;color:#fff">13</span>
+        <h1>Ingress &amp; Gateway API</h1>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#e67e22"></span>Concept</div>
+        <div class="card-body">
+          <p class="concept-text"><strong>Ingress</strong> manages <strong>external HTTP/HTTPS access</strong> to services in the cluster. It provides <strong>URL-based routing</strong>, <strong>SSL/TLS termination</strong>, and <strong>virtual hosting</strong>. Unlike NodePort/LoadBalancer (L4), Ingress operates at <strong>Layer 7</strong>.<br><br>
+            <strong>Key components:</strong><br>
+            • <strong>Ingress Controller</strong>: The actual proxy (NGINX, Traefik, HAProxy) — must be installed separately<br>
+            • <strong>Ingress Resource</strong>: Rules that define routing — which host/path maps to which service<br>
+            • <strong>IngressClass</strong>: Selects which controller handles the resource<br><br>
+            <strong>Gateway API</strong> is the newer replacement for Ingress — more expressive, supports TCP/UDP, and separates concerns between infra and app teams via GatewayClass → Gateway → HTTPRoute.
+          </p>
+          <div class="interview-box">
+            <p>"Ingress is K8s Layer 7 load balancing. Instead of creating a LoadBalancer per service, you have one Ingress controller handling all external traffic and routing based on host headers or URL paths. The Ingress resource is just the config — the actual work is done by the Ingress controller which is a pod running NGINX or Traefik. Gateway API is the evolution — it splits responsibilities into GatewayClass (infra provider), Gateway (cluster operator), and HTTPRoute (developer), giving better separation of concerns. In the exam, you need to know both Ingress resources and Gateway API basics."</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#5d9e5d"></span>YAML — Ingress (path + host + TLS) &amp; Gateway API</div>
+        <div class="card-body">
+          <pre># Path-based routing with TLS
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app-ingress
+  namespace: my-app
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx         # which controller to use
+  tls:
+  - hosts:
+    - myapp.example.com
+    secretName: tls-secret        # kubectl create secret tls ...
+  rules:
+  - host: myapp.example.com
+    http:
+      paths:
+      - path: /api
+        pathType: Prefix          # Prefix | Exact | ImplementationSpecific
+        backend:
+          service:
+            name: api-service
+            port:
+              number: 80
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: web-service
+            port:
+              number: 80
+
+---
+# Gateway API — HTTPRoute
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: app-route
+  namespace: my-app
+spec:
+  parentRefs:
+  - name: my-gateway              # references a Gateway object
+  hostnames:
+  - "myapp.example.com"
+  rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /api
+    backendRefs:
+    - name: api-service
+      port: 80</pre>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#d4850f"></span>Imperative Commands ⚡</div>
+        <div class="card-body">
+          <div class="imp-box">
+            <p>kubectl commands</p>
+            <span class="imp-cmd"><span class="imp-comment"># Create ingress imperatively</span></span>
+            <span class="imp-cmd">kubectl create ingress app-ingress --rule="myapp.example.com/api*=api-svc:80"</span>
+            <span class="imp-cmd">kubectl create ingress app-ingress \</span>
+            <span class="imp-cmd">  --rule="myapp.example.com/api*=api-svc:80,tls=tls-secret"</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Generate YAML</span></span>
+            <span class="imp-cmd">kubectl create ingress my-ing --rule="host/path=svc:port" --dry-run=client -o yaml</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># List and inspect</span></span>
+            <span class="imp-cmd">kubectl get ingress -n my-app</span>
+            <span class="imp-cmd">kubectl describe ingress app-ingress -n my-app</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Check IngressClass</span></span>
+            <span class="imp-cmd">kubectl get ingressclass</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NETWORK POLICIES -->
+    <div class="section" id="networkpolicy">
+      <div class="section-header">
+        <span class="section-badge" style="background:#326ce5;color:#fff">14</span>
+        <h1>Network Policies</h1>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#e67e22"></span>Concept</div>
+        <div class="card-body">
+          <p class="concept-text"><strong>NetworkPolicy</strong> controls <strong>traffic flow</strong> at the pod level — like a firewall for pods. By default, all pods can talk to all pods (<strong>allow-all</strong>). Once you apply a NetworkPolicy selecting a pod, only explicitly allowed traffic is permitted (<strong>default-deny</strong> for selected pods).<br><br>
+            <strong>Key concepts:</strong><br>
+            • <strong>Ingress rules</strong>: Who can send traffic TO the pod<br>
+            • <strong>Egress rules</strong>: Where the pod can send traffic TO<br>
+            • Selectors: <code class="inline">podSelector</code>, <code class="inline">namespaceSelector</code>, <code class="inline">ipBlock</code><br>
+            • Requires a CNI that supports NetworkPolicy (Calico, Cilium, Weave — NOT Flannel)
+          </p>
+          <div class="interview-box">
+            <p>"NetworkPolicy is K8s native firewall at the pod level. Without any policy, it's a flat network — every pod can reach every other pod. The moment you create a NetworkPolicy targeting a pod, that pod switches to default-deny for the policy types specified. You then whitelist specific traffic. The critical thing is your CNI must support it — Calico and Cilium do, Flannel doesn't. In the exam, you'll likely need to create a policy that allows traffic only from specific pods or namespaces. Remember: NetworkPolicy is namespaced and additive — multiple policies combine with OR logic."</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#5d9e5d"></span>YAML — Default Deny + Allow Specific</div>
+        <div class="card-body">
+          <pre># 1. Default deny ALL ingress in namespace
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-ingress
+  namespace: my-app
+spec:
+  podSelector: {}            # empty = selects ALL pods in namespace
+  policyTypes:
+  - Ingress                  # no ingress rules = deny all incoming
+
+---
+# 2. Allow traffic from specific pods + namespace
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-frontend
+  namespace: my-app
+spec:
+  podSelector:
+    matchLabels:
+      app: api-server         # apply to api-server pods
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - podSelector:            # from pods with role=frontend
+        matchLabels:
+          role: frontend
+    - namespaceSelector:      # OR from monitoring namespace
+        matchLabels:
+          name: monitoring
+    ports:
+    - protocol: TCP
+      port: 8080
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          app: database
+    ports:
+    - protocol: TCP
+      port: 5432
+  - to:                       # allow DNS
+    - namespaceSelector: {}
+    ports:
+    - protocol: UDP
+      port: 53</pre>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#d4850f"></span>Imperative Commands ⚡</div>
+        <div class="card-body">
+          <div class="imp-box">
+            <p>kubectl commands</p>
+            <span class="imp-cmd"><span class="imp-comment"># No direct imperative — use YAML. Useful commands:</span></span>
+            <span class="imp-cmd">kubectl get networkpolicy -n my-app</span>
+            <span class="imp-cmd">kubectl describe netpol allow-frontend -n my-app</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Test connectivity</span></span>
+            <span class="imp-cmd">kubectl run test --image=busybox --rm -it -- wget -qO- --timeout=2 http://api-svc:8080</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Debug: check if policy is applied</span></span>
+            <span class="imp-cmd">kubectl get pods -n my-app --show-labels</span>
+            <span class="imp-cmd">kubectl get netpol -n my-app -o yaml</span>
+          </div>
+          <div class="tip" style="margin-top:12px">
+            <span class="tip-icon">⚡</span>
+            <span><strong>CKA Tip:</strong> Always allow DNS egress (UDP 53) in your egress policies, otherwise pods can't resolve service names!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COREDNS -->
+    <div class="section" id="coredns">
+      <div class="section-header">
+        <span class="section-badge" style="background:#326ce5;color:#fff">15</span>
+        <h1>CoreDNS</h1>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#e67e22"></span>Concept</div>
+        <div class="card-body">
+          <p class="concept-text"><strong>CoreDNS</strong> is the <strong>cluster DNS server</strong> in Kubernetes. It provides <strong>service discovery</strong> — every Service gets a DNS name automatically.<br><br>
+            <strong>DNS record formats:</strong><br>
+            • Service: <code class="inline">svc-name.namespace.svc.cluster.local</code><br>
+            • Pod: <code class="inline">pod-ip-dashed.namespace.pod.cluster.local</code><br>
+            • Headless: <code class="inline">pod-name.svc-name.namespace.svc.cluster.local</code><br><br>
+            CoreDNS runs as a <strong>Deployment</strong> in <code class="inline">kube-system</code> namespace. Config stored in a <strong>ConfigMap</strong> called <code class="inline">coredns</code>.
+          </p>
+          <div class="interview-box">
+            <p>"CoreDNS replaced kube-dns as the default DNS in K8s 1.13. It runs as a Deployment with 2 replicas in kube-system, backed by a Service called kube-dns on ClusterIP. When you create a Service, K8s automatically creates a DNS record. Pods use the kube-dns Service IP (set in /etc/resolv.conf) to resolve names. For troubleshooting DNS, you run a debug pod with nslookup or dig. The Corefile in the coredns ConfigMap controls behavior — you can add custom DNS entries, forward to upstream DNS, etc."</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#5d9e5d"></span>YAML — CoreDNS ConfigMap &amp; DNS Debug</div>
+        <div class="card-body">
+          <pre># CoreDNS Corefile (in ConfigMap coredns)
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: coredns
+  namespace: kube-system
+data:
+  Corefile: |
+    .:53 {
+        errors
+        health { laxy_start_seconds 5 }
+        ready
+        kubernetes cluster.local in-addr.arpa ip6.arpa {
+            pods insecure
+            fallthrough in-addr.arpa ip6.arpa
+            ttl 30
+        }
+        prometheus :9153
+        forward . /etc/resolv.conf    # upstream DNS
+        cache 30
+        loop
+        reload
+        loadbalance
+    }
+
+---
+# DNS Debug Pod
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dnsutils
+spec:
+  containers:
+  - name: dnsutils
+    image: registry.k8s.io/e2e-test-images/jessie-dnsutils:1.3
+    command: ["sleep", "infinity"]
+  restartPolicy: Always</pre>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#d4850f"></span>Imperative Commands ⚡</div>
+        <div class="card-body">
+          <div class="imp-box">
+            <p>kubectl commands</p>
+            <span class="imp-cmd"><span class="imp-comment"># Check CoreDNS pods</span></span>
+            <span class="imp-cmd">kubectl get pods -n kube-system -l k8s-app=kube-dns</span>
+            <span class="imp-cmd">kubectl logs -n kube-system -l k8s-app=kube-dns</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Check CoreDNS ConfigMap</span></span>
+            <span class="imp-cmd">kubectl get cm coredns -n kube-system -o yaml</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># DNS lookup from debug pod</span></span>
+            <span class="imp-cmd">kubectl exec -it dnsutils -- nslookup kubernetes.default</span>
+            <span class="imp-cmd">kubectl exec -it dnsutils -- nslookup api-svc.my-app.svc.cluster.local</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Quick DNS test without debug pod</span></span>
+            <span class="imp-cmd">kubectl run dns-test --image=busybox --rm -it -- nslookup kubernetes.default</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Check /etc/resolv.conf inside a pod</span></span>
+            <span class="imp-cmd">kubectl exec my-pod -- cat /etc/resolv.conf</span>
           </div>
         </div>
       </div>
@@ -1484,7 +1894,7 @@ spec:
           <div class="imp-box">
             <p>kubectl commands</p>
             <span class="imp-cmd"><span class="imp-comment"># Create HPA imperatively (CPU)</span></span>
-            <span class="imp-cmd">kubectl autoscale deployment app-deployment --cpu-percent=70 --min=2 --max=10</span>
+            <span class="imp-cmd">kubectl autoscale deployment app-deployment --cpu=70 --min=2 --max=10</span>
             <span class="imp-cmd"> </span>
             <span class="imp-cmd">kubectl get hpa -n my-app</span>
             <span class="imp-cmd">kubectl describe hpa app-hpa -n my-app <span class="imp-comment"># see current
@@ -1907,6 +2317,719 @@ spec:
                 testing</span></span>
             <span class="imp-cmd" style="color:#f0a050">kubectl port-forward pod/my-pod 8080:80</span>
             <span class="imp-cmd" style="color:#f0a050">kubectl port-forward svc/my-svc 8080:80</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RBAC -->
+    <div class="section" id="rbac">
+      <div class="section-header">
+        <span class="section-badge" style="background:#e67e22">20</span>
+        <h1>RBAC — Role-Based Access Control</h1>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#e67e22"></span>Concept</div>
+        <div class="card-body">
+          <p class="concept-text"><strong>RBAC</strong> controls <strong>who can do what</strong> in the cluster. It uses 4 objects:<br><br>
+            • <strong>Role</strong>: Permissions within a <strong>namespace</strong> (verbs + resources)<br>
+            • <strong>ClusterRole</strong>: Permissions <strong>cluster-wide</strong> (nodes, PVs, non-namespaced resources)<br>
+            • <strong>RoleBinding</strong>: Binds a Role/ClusterRole to a user/group/SA in a <strong>namespace</strong><br>
+            • <strong>ClusterRoleBinding</strong>: Binds a ClusterRole to a user/group/SA <strong>cluster-wide</strong><br><br>
+            <strong>ServiceAccount</strong>: Identity for pods. Every pod runs as a ServiceAccount (default: <code class="inline">default</code> SA). Used to grant pods API access.
+          </p>
+          <div class="interview-box">
+            <p>"RBAC is the authorization model in K8s. You define WHAT actions are allowed (Role/ClusterRole with verbs like get, list, create, delete on resources like pods, deployments) and then bind those permissions to WHO needs them (users, groups, or ServiceAccounts via RoleBinding/ClusterRoleBinding). A key exam pattern is: create a ServiceAccount, create a Role with specific permissions, then bind them. ClusterRole + RoleBinding is a common combo — define permissions once at cluster level, then grant them namespace-by-namespace. Always follow least privilege — don't give cluster-admin unless absolutely needed."</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#5d9e5d"></span>YAML — Role + RoleBinding + ClusterRole</div>
+        <div class="card-body">
+          <pre># ServiceAccount
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: app-sa
+  namespace: my-app
+
+---
+# Role (namespace-scoped)
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: pod-reader
+  namespace: my-app
+rules:
+- apiGroups: [""]             # core API group
+  resources: ["pods", "pods/log"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["apps"]
+  resources: ["deployments"]
+  verbs: ["get", "list", "create", "update", "patch"]
+
+---
+# RoleBinding — binds Role to ServiceAccount
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: read-pods-binding
+  namespace: my-app
+subjects:
+- kind: ServiceAccount
+  name: app-sa
+  namespace: my-app
+# - kind: User               # for user binding
+#   name: jane
+#   apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role                  # Role or ClusterRole
+  name: pod-reader
+  apiGroup: rbac.authorization.k8s.io
+
+---
+# ClusterRole (cluster-wide)
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: node-viewer
+rules:
+- apiGroups: [""]
+  resources: ["nodes", "persistentvolumes"]
+  verbs: ["get", "list", "watch"]
+
+---
+# ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: view-nodes-binding
+subjects:
+- kind: User
+  name: jane
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: node-viewer
+  apiGroup: rbac.authorization.k8s.io
+
+---
+# Pod using ServiceAccount
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-pod
+  namespace: my-app
+spec:
+  serviceAccountName: app-sa  # use custom SA
+  containers:
+  - name: app
+    image: myapp:1.0</pre>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#d4850f"></span>Imperative Commands ⚡</div>
+        <div class="card-body">
+          <div class="imp-box">
+            <p>kubectl commands</p>
+            <span class="imp-cmd"><span class="imp-comment"># Create ServiceAccount</span></span>
+            <span class="imp-cmd">kubectl create sa app-sa -n my-app</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Create Role</span></span>
+            <span class="imp-cmd">kubectl create role pod-reader --verb=get,list,watch --resource=pods -n my-app</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Create ClusterRole</span></span>
+            <span class="imp-cmd">kubectl create clusterrole node-viewer --verb=get,list --resource=nodes</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Create RoleBinding</span></span>
+            <span class="imp-cmd">kubectl create rolebinding read-pods --role=pod-reader --serviceaccount=my-app:app-sa -n my-app</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Create ClusterRoleBinding</span></span>
+            <span class="imp-cmd">kubectl create clusterrolebinding view-nodes --clusterrole=node-viewer --user=jane</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Check permissions (can-i)</span></span>
+            <span class="imp-cmd">kubectl auth can-i get pods -n my-app --as=system:serviceaccount:my-app:app-sa</span>
+            <span class="imp-cmd">kubectl auth can-i create deployments --as=jane</span>
+            <span class="imp-cmd">kubectl auth can-i '*' '*' <span class="imp-comment"># am I cluster-admin?</span></span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Generate YAML</span></span>
+            <span class="imp-cmd">kubectl create role pod-reader --verb=get,list --resource=pods --dry-run=client -o yaml</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KUBEADM -->
+    <div class="section" id="kubeadm">
+      <div class="section-header">
+        <span class="section-badge" style="background:#e67e22">21</span>
+        <h1>kubeadm — Cluster Bootstrap</h1>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#e67e22"></span>Concept</div>
+        <div class="card-body">
+          <p class="concept-text"><strong>kubeadm</strong> is the official tool to <strong>bootstrap Kubernetes clusters</strong>. It handles: certificate generation, etcd setup, control plane components, kubelet configuration, and node joining.<br><br>
+            <strong>Workflow:</strong><br>
+            1. <code class="inline">kubeadm init</code> on master → initializes control plane<br>
+            2. Copy <code class="inline">/etc/kubernetes/admin.conf</code> to <code class="inline">~/.kube/config</code><br>
+            3. Install CNI network plugin (Calico, Flannel, etc.)<br>
+            4. <code class="inline">kubeadm join</code> on worker nodes with token
+          </p>
+          <div class="interview-box">
+            <p>"kubeadm is the standard tool for creating production-grade K8s clusters. Init generates all certificates, creates static pod manifests for kube-apiserver, kube-scheduler, kube-controller-manager, and etcd in /etc/kubernetes/manifests. It bootstraps the cluster CA and creates the kubeconfig files. After init, you install a CNI plugin — without it, pods can't communicate across nodes. Then you join workers using the token from kubeadm init. For upgrades, you use kubeadm upgrade plan to see available versions, then kubeadm upgrade apply on master, then upgrade kubelet on each node."</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#d4850f"></span>Commands — Init, Join &amp; Upgrade</div>
+        <div class="card-body">
+          <div class="imp-box">
+            <p>kubeadm commands</p>
+            <span class="imp-cmd"><span class="imp-comment"># Initialize control plane</span></span>
+            <span class="imp-cmd">kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=192.168.1.10</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Setup kubeconfig after init</span></span>
+            <span class="imp-cmd">mkdir -p $HOME/.kube</span>
+            <span class="imp-cmd">cp -i /etc/kubernetes/admin.conf $HOME/.kube/config</span>
+            <span class="imp-cmd">chown $(id -u):$(id -g) $HOME/.kube/config</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Generate join token</span></span>
+            <span class="imp-cmd">kubeadm token create --print-join-command</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Join worker node</span></span>
+            <span class="imp-cmd">kubeadm join 192.168.1.10:6443 --token &lt;token&gt; --discovery-token-ca-cert-hash sha256:&lt;hash&gt;</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Upgrade cluster</span></span>
+            <span class="imp-cmd">kubeadm upgrade plan <span class="imp-comment"># check available versions</span></span>
+            <span class="imp-cmd">kubeadm upgrade apply v1.31.0 <span class="imp-comment"># upgrade control plane</span></span>
+            <span class="imp-cmd">kubeadm upgrade node <span class="imp-comment"># on worker nodes</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLUSTER LIFECYCLE -->
+    <div class="section" id="cluster-lifecycle">
+      <div class="section-header">
+        <span class="section-badge" style="background:#e67e22">22</span>
+        <h1>Cluster Lifecycle — Upgrade, Backup, Drain</h1>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#e67e22"></span>Concept</div>
+        <div class="card-body">
+          <p class="concept-text"><strong>Cluster lifecycle management</strong> covers upgrades, etcd backup/restore, and node maintenance:<br><br>
+            • <strong>Upgrade strategy</strong>: Upgrade control plane first, then workers one at a time. Max skew: kubelet can be 1 minor version behind API server<br>
+            • <strong>etcd backup</strong>: etcd stores ALL cluster state. Take regular snapshots with <code class="inline">etcdctl snapshot save</code>. Critical for disaster recovery<br>
+            • <strong>Node drain</strong>: Safely evict pods before maintenance. <code class="inline">cordon</code> = mark unschedulable, <code class="inline">drain</code> = cordon + evict pods
+          </p>
+          <div class="interview-box">
+            <p>"For upgrades, you always go control plane first — upgrade kubeadm, then run kubeadm upgrade apply, then upgrade kubelet and kubectl. For workers, drain each node, upgrade, uncordon. etcd backup is critical — I'd take snapshots before any upgrade. Use etcdctl snapshot save with the correct cert paths. For restore, stop API server, restore snapshot, restart. In the exam, you'll likely get a drain/cordon question or an etcd backup/restore question — those are high-value topics."</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#d4850f"></span>Commands — Drain, Backup, Upgrade</div>
+        <div class="card-body">
+          <div class="imp-box">
+            <p>Essential commands</p>
+            <span class="imp-cmd"><span class="imp-comment"># Node maintenance — drain/cordon/uncordon</span></span>
+            <span class="imp-cmd">kubectl cordon node01 <span class="imp-comment"># mark unschedulable</span></span>
+            <span class="imp-cmd">kubectl drain node01 --ignore-daemonsets --delete-emptydir-data</span>
+            <span class="imp-cmd">kubectl uncordon node01 <span class="imp-comment"># mark schedulable again</span></span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># etcd backup</span></span>
+            <span class="imp-cmd">ETCDCTL_API=3 etcdctl snapshot save /tmp/etcd-backup.db \</span>
+            <span class="imp-cmd">  --endpoints=https://127.0.0.1:2379 \</span>
+            <span class="imp-cmd">  --cacert=/etc/kubernetes/pki/etcd/ca.crt \</span>
+            <span class="imp-cmd">  --cert=/etc/kubernetes/pki/etcd/server.crt \</span>
+            <span class="imp-cmd">  --key=/etc/kubernetes/pki/etcd/server.key</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># etcd restore</span></span>
+            <span class="imp-cmd">ETCDCTL_API=3 etcdctl snapshot restore /tmp/etcd-backup.db \</span>
+            <span class="imp-cmd">  --data-dir=/var/lib/etcd-restored</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Verify snapshot</span></span>
+            <span class="imp-cmd">ETCDCTL_API=3 etcdctl snapshot status /tmp/etcd-backup.db --write-table</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Upgrade steps (on control plane node)</span></span>
+            <span class="imp-cmd">apt-get update && apt-get install -y kubeadm=1.31.0-00</span>
+            <span class="imp-cmd">kubeadm upgrade plan</span>
+            <span class="imp-cmd">kubeadm upgrade apply v1.31.0</span>
+            <span class="imp-cmd">apt-get install -y kubelet=1.31.0-00 kubectl=1.31.0-00</span>
+            <span class="imp-cmd">systemctl daemon-reload && systemctl restart kubelet</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HA CONTROL PLANE -->
+    <div class="section" id="ha-control-plane">
+      <div class="section-header">
+        <span class="section-badge" style="background:#e67e22">23</span>
+        <h1>Highly-Available Control Plane</h1>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#e67e22"></span>Concept</div>
+        <div class="card-body">
+          <p class="concept-text"><strong>HA control plane</strong> means multiple master nodes for fault tolerance. Two topologies:<br><br>
+            • <strong>Stacked etcd</strong>: etcd runs on each control plane node. Simpler setup, fewer servers. But if a node fails, both a control plane member and an etcd member are lost<br>
+            • <strong>External etcd</strong>: etcd runs on separate dedicated hosts. Better resilience — etcd and control plane failures are independent. Needs more infrastructure<br><br>
+            Both require a <strong>load balancer</strong> in front of API servers (HAProxy, nginx, cloud LB). Minimum <strong>3 control plane nodes</strong> for etcd quorum (odd number required).
+          </p>
+          <div class="interview-box">
+            <p>"For production, you need at least 3 control plane nodes for etcd quorum — etcd uses Raft consensus which requires a majority to function, so 3 nodes can survive 1 failure. The load balancer distributes API requests across all API servers. In stacked topology, you init the first node with --control-plane-endpoint pointing to the LB, then join additional control planes with --control-plane flag. kube-scheduler and kube-controller-manager use leader election — only one is active, others are standby. API servers are all active behind the load balancer."</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#d4850f"></span>Commands — HA Setup</div>
+        <div class="card-body">
+          <div class="imp-box">
+            <p>kubeadm HA commands</p>
+            <span class="imp-cmd"><span class="imp-comment"># Init first control plane with LB endpoint</span></span>
+            <span class="imp-cmd">kubeadm init --control-plane-endpoint "lb.example.com:6443" \</span>
+            <span class="imp-cmd">  --upload-certs --pod-network-cidr=10.244.0.0/16</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Join additional control plane nodes</span></span>
+            <span class="imp-cmd">kubeadm join lb.example.com:6443 --token &lt;token&gt; \</span>
+            <span class="imp-cmd">  --discovery-token-ca-cert-hash sha256:&lt;hash&gt; \</span>
+            <span class="imp-cmd">  --control-plane --certificate-key &lt;cert-key&gt;</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Check control plane components</span></span>
+            <span class="imp-cmd">kubectl get nodes</span>
+            <span class="imp-cmd">kubectl get pods -n kube-system | grep -E 'apiserver|scheduler|controller|etcd'</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Check etcd cluster health</span></span>
+            <span class="imp-cmd">ETCDCTL_API=3 etcdctl member list \</span>
+            <span class="imp-cmd">  --endpoints=https://127.0.0.1:2379 \</span>
+            <span class="imp-cmd">  --cacert=/etc/kubernetes/pki/etcd/ca.crt \</span>
+            <span class="imp-cmd">  --cert=/etc/kubernetes/pki/etcd/server.crt \</span>
+            <span class="imp-cmd">  --key=/etc/kubernetes/pki/etcd/server.key</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HELM & KUSTOMIZE -->
+    <div class="section" id="helm-kustomize">
+      <div class="section-header">
+        <span class="section-badge" style="background:#e67e22">24</span>
+        <h1>Helm &amp; Kustomize</h1>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#e67e22"></span>Concept</div>
+        <div class="card-body">
+          <p class="concept-text"><strong>Helm</strong> is the <strong>package manager</strong> for Kubernetes. A <strong>Chart</strong> is a package of K8s manifests with templating. A <strong>Release</strong> is a deployed instance of a chart.<br><br>
+            <strong>Kustomize</strong> is a <strong>template-free</strong> way to customize K8s manifests using <strong>overlays</strong>. Built into kubectl (<code class="inline">kubectl apply -k</code>). It patches base manifests without modifying them — great for per-environment config (dev/staging/prod).
+          </p>
+          <div class="interview-box">
+            <p>"Helm uses Go templates and values.yaml for parameterization — you install charts from repos like ArtifactHub. Key commands: helm install, upgrade, rollback, uninstall. Kustomize takes a different approach — no templating. You have a base directory with your standard manifests and overlay directories that patch those manifests. Use namePrefix, labels, patches to customize per environment. In the CKA exam, you'll likely need to install something via Helm (e.g., a CNI or ingress controller) or use Kustomize to modify existing manifests."</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#d4850f"></span>Commands — Helm &amp; Kustomize</div>
+        <div class="card-body">
+          <div class="imp-box">
+            <p>Helm commands</p>
+            <span class="imp-cmd"><span class="imp-comment"># Add repo and install chart</span></span>
+            <span class="imp-cmd">helm repo add bitnami https://charts.bitnami.com/bitnami</span>
+            <span class="imp-cmd">helm repo update</span>
+            <span class="imp-cmd">helm install my-nginx bitnami/nginx -n my-app</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Install with custom values</span></span>
+            <span class="imp-cmd">helm install my-app ./my-chart --values=prod-values.yaml</span>
+            <span class="imp-cmd">helm install my-app ./my-chart --set replicaCount=3</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Upgrade and rollback</span></span>
+            <span class="imp-cmd">helm upgrade my-app bitnami/nginx --set image.tag=1.25</span>
+            <span class="imp-cmd">helm rollback my-app 1 <span class="imp-comment"># rollback to revision 1</span></span>
+            <span class="imp-cmd">helm history my-app</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># List and uninstall</span></span>
+            <span class="imp-cmd">helm list -n my-app</span>
+            <span class="imp-cmd">helm uninstall my-app -n my-app</span>
+          </div>
+          <div class="imp-box" style="margin-top:12px">
+            <p>Kustomize commands</p>
+            <span class="imp-cmd"><span class="imp-comment"># Apply with Kustomize (built into kubectl)</span></span>
+            <span class="imp-cmd">kubectl apply -k ./overlays/production/</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Preview generated YAML</span></span>
+            <span class="imp-cmd">kubectl kustomize ./overlays/production/</span>
+            <span class="imp-cmd">kustomize build ./overlays/production/</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CNI CSI CRI -->
+    <div class="section" id="cni-csi-cri">
+      <div class="section-header">
+        <span class="section-badge" style="background:#e67e22">25</span>
+        <h1>CNI, CSI, CRI — Extension Interfaces</h1>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#e67e22"></span>Concept</div>
+        <div class="card-body">
+          <p class="concept-text">Kubernetes uses <strong>plugin interfaces</strong> to keep the core modular:<br><br>
+            • <strong>CNI (Container Network Interface)</strong>: Network plugin that assigns IPs to pods and enables pod-to-pod communication across nodes. Examples: <code class="inline">Calico</code>, <code class="inline">Flannel</code>, <code class="inline">Cilium</code>, <code class="inline">Weave</code><br>
+            • <strong>CSI (Container Storage Interface)</strong>: Storage plugin for dynamic volume provisioning. Examples: AWS EBS CSI, GCE PD CSI, NFS CSI<br>
+            • <strong>CRI (Container Runtime Interface)</strong>: Runtime plugin. K8s talks to CRI, which talks to the container runtime. Examples: <code class="inline">containerd</code>, <code class="inline">CRI-O</code> (Docker removed since K8s 1.24)<br><br>
+            CNI plugins live in <code class="inline">/opt/cni/bin/</code>. CNI config in <code class="inline">/etc/cni/net.d/</code>.
+          </p>
+          <div class="interview-box">
+            <p>"These three interfaces are what make K8s extensible. CNI handles networking — when a pod is created, kubelet calls the CNI plugin to set up the network namespace, assign an IP, and configure routes. Without a CNI, pods can't communicate. CSI standardizes how storage vendors integrate — StorageClass references a CSI driver, and the provisioner creates volumes on demand. CRI abstracts the container runtime — kubelet uses CRI to pull images, create containers. After K8s 1.24, Docker is no longer supported directly; containerd and CRI-O are the standard runtimes."</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#d4850f"></span>Imperative Commands ⚡</div>
+        <div class="card-body">
+          <div class="imp-box">
+            <p>kubectl commands</p>
+            <span class="imp-cmd"><span class="imp-comment"># Check which CNI is installed</span></span>
+            <span class="imp-cmd">ls /etc/cni/net.d/</span>
+            <span class="imp-cmd">ls /opt/cni/bin/</span>
+            <span class="imp-cmd">kubectl get pods -n kube-system | grep -E 'calico|flannel|cilium|weave'</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Install Calico CNI</span></span>
+            <span class="imp-cmd">kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Check container runtime</span></span>
+            <span class="imp-cmd">kubectl get nodes -o wide <span class="imp-comment"># CONTAINER-RUNTIME column</span></span>
+            <span class="imp-cmd">crictl ps <span class="imp-comment"># list running containers via CRI</span></span>
+            <span class="imp-cmd">crictl images <span class="imp-comment"># list images via CRI</span></span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Check CSI drivers</span></span>
+            <span class="imp-cmd">kubectl get csidrivers</span>
+            <span class="imp-cmd">kubectl get csinodes</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CRDS & OPERATORS -->
+    <div class="section" id="crds-operators">
+      <div class="section-header">
+        <span class="section-badge" style="background:#e67e22">26</span>
+        <h1>CRDs &amp; Operators</h1>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#e67e22"></span>Concept</div>
+        <div class="card-body">
+          <p class="concept-text"><strong>CRD (Custom Resource Definition)</strong> lets you extend the K8s API with your own resource types. After creating a CRD, you can create instances (Custom Resources) just like pods or services.<br><br>
+            <strong>Operator</strong> = CRD + custom controller. The controller watches for changes to Custom Resources and takes action (create pods, configure databases, etc.). Think of it as encoding operational knowledge into software. Examples: Prometheus Operator, cert-manager, MySQL Operator.
+          </p>
+          <div class="interview-box">
+            <p>"CRDs extend the K8s API — you define a new resource type, and K8s API server handles the rest: validation, RBAC, storage in etcd, kubectl support. An Operator packages a CRD with a controller that knows how to manage the lifecycle of a complex application. For example, a PostgreSQL Operator knows how to handle replication, failover, backup — things that would normally require a DBA. In the exam, you should know how to view CRDs, create custom resources, and understand the operator pattern."</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#5d9e5d"></span>YAML — CRD Example</div>
+        <div class="card-body">
+          <pre># Custom Resource Definition
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: backups.stable.example.com
+spec:
+  group: stable.example.com
+  versions:
+  - name: v1
+    served: true
+    storage: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              schedule:
+                type: string
+              database:
+                type: string
+  scope: Namespaced
+  names:
+    plural: backups
+    singular: backup
+    kind: Backup
+    shortNames:
+    - bk
+
+---
+# Custom Resource (instance of the CRD)
+apiVersion: stable.example.com/v1
+kind: Backup
+metadata:
+  name: daily-db-backup
+  namespace: my-app
+spec:
+  schedule: "0 2 * * *"
+  database: "production-db"</pre>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#d4850f"></span>Imperative Commands ⚡</div>
+        <div class="card-body">
+          <div class="imp-box">
+            <p>kubectl commands</p>
+            <span class="imp-cmd"><span class="imp-comment"># List all CRDs in cluster</span></span>
+            <span class="imp-cmd">kubectl get crd</span>
+            <span class="imp-cmd">kubectl describe crd backups.stable.example.com</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Work with custom resources</span></span>
+            <span class="imp-cmd">kubectl get backups -n my-app</span>
+            <span class="imp-cmd">kubectl get bk -n my-app <span class="imp-comment"># using shortName</span></span>
+            <span class="imp-cmd">kubectl describe backup daily-db-backup -n my-app</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># List all API resources (shows CRDs too)</span></span>
+            <span class="imp-cmd">kubectl api-resources | grep stable.example.com</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STORAGECLASS -->
+    <div class="section" id="storageclass">
+      <div class="section-header">
+        <span class="section-badge" style="background:#d4850f">27</span>
+        <h1>StorageClass &amp; Dynamic Provisioning</h1>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#e67e22"></span>Concept</div>
+        <div class="card-body">
+          <p class="concept-text"><strong>StorageClass</strong> enables <strong>dynamic volume provisioning</strong> — PVs are created automatically when a PVC is submitted, no manual PV creation needed.<br><br>
+            • <strong>provisioner</strong>: The CSI driver that creates the volume (e.g., <code class="inline">kubernetes.io/aws-ebs</code>, <code class="inline">pd.csi.storage.gke.io</code>)<br>
+            • <strong>reclaimPolicy</strong>: <code class="inline">Delete</code> (default) or <code class="inline">Retain</code><br>
+            • <strong>volumeBindingMode</strong>: <code class="inline">Immediate</code> (bind PV right away) or <code class="inline">WaitForFirstConsumer</code> (wait until a pod uses the PVC — better for topology-aware scheduling)<br>
+            • <strong>allowVolumeExpansion</strong>: Allow PVC resize
+          </p>
+          <div class="interview-box">
+            <p>"StorageClass abstracts storage infrastructure. Instead of pre-creating PVs, you define a StorageClass with a provisioner, and when a PVC references that StorageClass, the provisioner automatically creates the volume. WaitForFirstConsumer is important for multi-zone setups — it delays PV creation until a pod is scheduled, so the volume is created in the same zone as the pod. Without it, you might get a PV in zone-a but a pod scheduled in zone-b, which won't work."</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#5d9e5d"></span>YAML — StorageClass + Dynamic PVC</div>
+        <div class="card-body">
+          <pre># StorageClass
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: fast-ssd
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+provisioner: pd.csi.storage.gke.io    # cloud-specific provisioner
+parameters:
+  type: pd-ssd
+reclaimPolicy: Delete
+volumeBindingMode: WaitForFirstConsumer
+allowVolumeExpansion: true
+
+---
+# PVC using dynamic provisioning (no manual PV needed!)
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: app-data
+  namespace: my-app
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: fast-ssd       # references StorageClass
+  resources:
+    requests:
+      storage: 20Gi</pre>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#d4850f"></span>Imperative Commands ⚡</div>
+        <div class="card-body">
+          <div class="imp-box">
+            <p>kubectl commands</p>
+            <span class="imp-cmd">kubectl get storageclass</span>
+            <span class="imp-cmd">kubectl get sc <span class="imp-comment"># shorthand</span></span>
+            <span class="imp-cmd">kubectl describe sc fast-ssd</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Check default StorageClass</span></span>
+            <span class="imp-cmd">kubectl get sc -o wide</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Set default StorageClass</span></span>
+            <span class="imp-cmd">kubectl patch sc fast-ssd -p '{"metadata":{"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TROUBLESHOOT CLUSTER -->
+    <div class="section" id="troubleshoot-cluster">
+      <div class="section-header">
+        <span class="section-badge" style="background:#c0392b">28</span>
+        <h1>Troubleshooting — Clusters &amp; Nodes</h1>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#e67e22"></span>Concept</div>
+        <div class="card-body">
+          <p class="concept-text"><strong>Cluster troubleshooting</strong> covers node issues, control plane components, and resource monitoring:<br><br>
+            • <strong>Node NotReady</strong>: Check kubelet status, container runtime, network<br>
+            • <strong>Control plane issues</strong>: Static pods in <code class="inline">/etc/kubernetes/manifests/</code> — API server, scheduler, controller-manager, etcd<br>
+            • <strong>Monitoring</strong>: <code class="inline">kubectl top</code> (requires metrics-server), events, component logs<br>
+            • <strong>Container logs</strong>: <code class="inline">kubectl logs</code>, <code class="inline">--previous</code> for crashed containers, <code class="inline">crictl logs</code> for runtime-level logs
+          </p>
+          <div class="interview-box">
+            <p>"When troubleshooting, start broad then narrow down. For a NotReady node: SSH in, check kubelet (systemctl status kubelet, journalctl -u kubelet), check container runtime, check /var/log/. For control plane issues: check if static pod manifests are correct in /etc/kubernetes/manifests/, check kube-apiserver logs. For monitoring: install metrics-server, then use kubectl top nodes/pods. Always check events first — kubectl get events --sort-by=.lastTimestamp gives you the timeline of what happened."</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#d4850f"></span>Commands — Cluster Troubleshooting</div>
+        <div class="card-body">
+          <div class="imp-box">
+            <p>Essential debugging commands</p>
+            <span class="imp-cmd"><span class="imp-comment"># Node status and issues</span></span>
+            <span class="imp-cmd">kubectl get nodes</span>
+            <span class="imp-cmd">kubectl describe node node01 <span class="imp-comment"># check Conditions, Events</span></span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Control plane components</span></span>
+            <span class="imp-cmd">kubectl get pods -n kube-system</span>
+            <span class="imp-cmd">kubectl logs kube-apiserver-master -n kube-system</span>
+            <span class="imp-cmd">kubectl logs kube-scheduler-master -n kube-system</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># kubelet (on the node via SSH)</span></span>
+            <span class="imp-cmd">systemctl status kubelet</span>
+            <span class="imp-cmd">journalctl -u kubelet -f <span class="imp-comment"># follow logs</span></span>
+            <span class="imp-cmd">systemctl restart kubelet</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Static pod manifests</span></span>
+            <span class="imp-cmd">ls /etc/kubernetes/manifests/</span>
+            <span class="imp-cmd">cat /var/lib/kubelet/config.yaml | grep staticPodPath</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Resource monitoring (requires metrics-server)</span></span>
+            <span class="imp-cmd">kubectl top nodes</span>
+            <span class="imp-cmd">kubectl top pods -n my-app --sort-by=cpu</span>
+            <span class="imp-cmd">kubectl top pods -A --sort-by=memory</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Events — timeline of what happened</span></span>
+            <span class="imp-cmd">kubectl get events -n my-app --sort-by=.lastTimestamp</span>
+            <span class="imp-cmd">kubectl get events -A --field-selector reason=Failed</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TROUBLESHOOT WORKLOADS -->
+    <div class="section" id="troubleshoot-workloads">
+      <div class="section-header">
+        <span class="section-badge" style="background:#c0392b">29</span>
+        <h1>Troubleshooting — Workloads</h1>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#e67e22"></span>Concept</div>
+        <div class="card-body">
+          <p class="concept-text"><strong>Common pod failure states:</strong><br><br>
+            • <strong>CrashLoopBackOff</strong>: Container starts, crashes, restarts repeatedly. Check logs: <code class="inline">kubectl logs pod --previous</code><br>
+            • <strong>ImagePullBackOff</strong>: Can't pull image. Wrong image name, tag, or registry auth issue<br>
+            • <strong>Pending</strong>: No node can schedule the pod. Insufficient resources, no matching nodeSelector/affinity, taints blocking<br>
+            • <strong>CreateContainerConfigError</strong>: Missing ConfigMap, Secret, or volume reference<br>
+            • <strong>OOMKilled</strong>: Container exceeded memory limit. Increase limits or fix memory leak
+          </p>
+          <div class="interview-box">
+            <p>"For pod debugging, follow this flow: 1) kubectl get pods — see status. 2) kubectl describe pod — check Events section at the bottom for scheduling or volume errors. 3) kubectl logs — check app logs for crashes. 4) kubectl exec — get a shell and debug from inside. For CrashLoopBackOff, 90% of the time the answer is in kubectl logs --previous. For Pending, check events for scheduling failures. For ImagePullBackOff, verify the image exists and check imagePullSecrets if it's a private registry."</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#d4850f"></span>Commands — Pod Debugging Flow</div>
+        <div class="card-body">
+          <div class="imp-box">
+            <p>Debugging workflow</p>
+            <span class="imp-cmd"><span class="imp-comment"># Step 1: Check pod status</span></span>
+            <span class="imp-cmd">kubectl get pods -n my-app -o wide</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Step 2: Describe for events and details</span></span>
+            <span class="imp-cmd">kubectl describe pod my-pod -n my-app</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Step 3: Check logs</span></span>
+            <span class="imp-cmd">kubectl logs my-pod -n my-app</span>
+            <span class="imp-cmd">kubectl logs my-pod -n my-app --previous <span class="imp-comment"># crashed container</span></span>
+            <span class="imp-cmd">kubectl logs my-pod -n my-app -c sidecar <span class="imp-comment"># specific container</span></span>
+            <span class="imp-cmd">kubectl logs my-pod -n my-app --all-containers=true</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Step 4: Get shell inside pod</span></span>
+            <span class="imp-cmd">kubectl exec -it my-pod -n my-app -- /bin/sh</span>
+            <span class="imp-cmd">kubectl exec my-pod -n my-app -- env <span class="imp-comment"># check env vars</span></span>
+            <span class="imp-cmd">kubectl exec my-pod -n my-app -- cat /etc/config/app.yaml</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Deployment rollout issues</span></span>
+            <span class="imp-cmd">kubectl rollout status deployment/my-deploy -n my-app</span>
+            <span class="imp-cmd">kubectl rollout history deployment/my-deploy</span>
+            <span class="imp-cmd">kubectl rollout undo deployment/my-deploy <span class="imp-comment"># fix bad deploy</span></span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Debug with ephemeral container</span></span>
+            <span class="imp-cmd">kubectl debug my-pod -it --image=busybox --target=app</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TROUBLESHOOT NETWORKING -->
+    <div class="section" id="troubleshoot-networking">
+      <div class="section-header">
+        <span class="section-badge" style="background:#c0392b">30</span>
+        <h1>Troubleshooting — Networking</h1>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#e67e22"></span>Concept</div>
+        <div class="card-body">
+          <p class="concept-text"><strong>Network troubleshooting</strong> covers service connectivity, DNS, and pod networking:<br><br>
+            • <strong>Service not reachable</strong>: Check selector labels match pod labels. Check endpoints exist (<code class="inline">kubectl get endpoints</code>). Verify target port matches container port<br>
+            • <strong>DNS issues</strong>: Check CoreDNS pods are running. Test with <code class="inline">nslookup</code> from a debug pod. Check <code class="inline">/etc/resolv.conf</code><br>
+            • <strong>Pod-to-pod issues</strong>: Check CNI plugin is installed and running. Check NetworkPolicies aren't blocking traffic<br>
+            • <strong>Ingress issues</strong>: Check Ingress controller pods, IngressClass, annotations, backend service
+          </p>
+          <div class="interview-box">
+            <p>"For Service issues, the most common problem is label mismatch — the service selector doesn't match any pod labels, so endpoints are empty. Always check kubectl get endpoints. For DNS, verify CoreDNS is running, then test from inside a pod. For pod connectivity, check if CNI is healthy and if NetworkPolicies are blocking traffic. A good debug pattern: run a test pod with network tools (busybox or nicolaka/netshoot) and test connectivity step by step — can you reach the pod IP? The Service IP? The DNS name?"</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="dot" style="background:#d4850f"></span>Commands — Network Debugging</div>
+        <div class="card-body">
+          <div class="imp-box">
+            <p>Network troubleshooting commands</p>
+            <span class="imp-cmd"><span class="imp-comment"># Check Service and Endpoints</span></span>
+            <span class="imp-cmd">kubectl get svc -n my-app</span>
+            <span class="imp-cmd">kubectl get endpoints -n my-app <span class="imp-comment"># empty = label mismatch!</span></span>
+            <span class="imp-cmd">kubectl describe svc my-svc -n my-app</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Test connectivity from debug pod</span></span>
+            <span class="imp-cmd">kubectl run netdebug --image=busybox --rm -it -- sh</span>
+            <span class="imp-cmd"><span class="imp-comment"># Inside pod:</span></span>
+            <span class="imp-cmd"><span class="imp-comment"># wget -qO- http://my-svc.my-app.svc:80</span></span>
+            <span class="imp-cmd"><span class="imp-comment"># nslookup my-svc.my-app.svc.cluster.local</span></span>
+            <span class="imp-cmd"><span class="imp-comment"># ping 10.244.1.5</span></span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># DNS troubleshooting</span></span>
+            <span class="imp-cmd">kubectl get pods -n kube-system -l k8s-app=kube-dns</span>
+            <span class="imp-cmd">kubectl logs -n kube-system -l k8s-app=kube-dns</span>
+            <span class="imp-cmd">kubectl run dns-test --image=busybox --rm -it -- nslookup kubernetes.default</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Check NetworkPolicies blocking traffic</span></span>
+            <span class="imp-cmd">kubectl get netpol -n my-app</span>
+            <span class="imp-cmd">kubectl describe netpol -n my-app</span>
+            <span class="imp-cmd"> </span>
+            <span class="imp-cmd"><span class="imp-comment"># Ingress troubleshooting</span></span>
+            <span class="imp-cmd">kubectl get ingress -n my-app</span>
+            <span class="imp-cmd">kubectl describe ingress my-ingress -n my-app</span>
+            <span class="imp-cmd">kubectl get pods -n ingress-nginx <span class="imp-comment"># check controller</span></span>
+            <span class="imp-cmd">kubectl logs -n ingress-nginx -l app.kubernetes.io/name=ingress-nginx</span>
+          </div>
+          <div class="tip" style="margin-top:12px">
+            <span class="tip-icon">⚡</span>
+            <span><strong>CKA Debug Pattern:</strong> get pods → describe pod (Events) → logs → exec into pod. For services: get endpoints → test from inside cluster. 90% of problems are found in Events or logs!</span>
           </div>
         </div>
       </div>
