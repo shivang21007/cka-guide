@@ -809,10 +809,6 @@ spec:
             <span class="imp-cmd"><span class="imp-comment"># With env vars</span></span>
             <span class="imp-cmd">kubectl run app --image=myapp --env="ENV=prod" --env="PORT=8080"</span>
             <span class="imp-cmd"> </span>
-            <span class="imp-cmd"><span class="imp-comment"># With resource limits</span></span>
-            <span class="imp-cmd">kubectl run app --image=myapp --requests='cpu=100m,memory=128Mi' \</span>
-            <span class="imp-cmd"> --limits='cpu=200m,memory=256Mi'</span>
-            <span class="imp-cmd"> </span>
             <span class="imp-cmd"><span class="imp-comment"># Execute command in pod</span></span>
             <span class="imp-cmd">kubectl exec -it nginx-pod -- /bin/bash</span>
             <span class="imp-cmd">kubectl exec nginx-pod -- env | grep APP</span>
